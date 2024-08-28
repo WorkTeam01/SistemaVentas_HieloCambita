@@ -1,10 +1,10 @@
 <?php
 include_once '../../App/config.php';
-
 include_once '../../Views/Layouts/sesion.php';
+
 include_once '../../Views/Layouts/header.php';
 
-include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
+include_once '../../App/Controllers/roles/listado_de_roles.php';
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -13,7 +13,7 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0">Lista de usuarios</h1>
+                    <h1 class="m-0">Lista de roles</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -24,10 +24,10 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Usuarios registrados</h3>
+                            <h3 class="card-title">Roles registrados</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"> <i class="fas fa-minus"></i></button>
                             </div>
@@ -38,37 +38,21 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
                                     <thead>
                                         <tr>
                                             <th class="text-center">Nro</th>
-                                            <th class="text-center">Nombres</th>
-                                            <th class="text-center">Email</th>
-                                            <th class="text-center">Rol</th>
-                                            <th class="text-center">Estado</th>
+                                            <th class="text-center">Nombre rol</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $contador = 0;
-                                        foreach ($usuarios_datos as $usuarios_dato) {
-                                            $id_usuario = $usuarios_dato['IdUsuario'];
-                                            $estado_usuario = $usuarios_dato['EstadoUsuario'];
-                                        ?>
+                                        foreach ($roles_datos as $roles_dato) {
+                                            $id_rol = $roles_dato['IdRolUsuario']; ?>
                                             <tr>
                                                 <td class="text-center"><?php echo $contador += 1; ?></td>
-                                                <td><?php echo $usuarios_dato['NombresUsuario']; ?></td>
-                                                <td><?php echo $usuarios_dato['EmailUsuario']; ?></td>
-                                                <td><?php echo $usuarios_dato['RolUsuario']; ?></td>
+                                                <td><?php echo $roles_dato['RolUsuario']; ?></td>
                                                 <td class="text-center">
-                                                    <?php if ($estado_usuario === 1) { ?>
-                                                        <button class="btn btn-success btn-sm">Activo</button>
-                                                    <?php } else { ?>
-                                                        <button class="btn btn-danger btn-sm">Inactivo</button>
-                                                    <?php } ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <div class="btn-group-sm">
-                                                        <a href="show.php?id=<?php echo $id_usuario; ?>" type="button" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
-                                                        <a href="update.php?id=<?php echo $id_usuario; ?>" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Editar</a>
-                                                        <a href="delete.php?id=<?php echo $id_usuario; ?>" type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                                                    <div class="btn-group">
+                                                        <a href="update.php?id=<?php echo $id_rol; ?>" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Editar</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -76,7 +60,6 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -128,9 +111,9 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
             "sLengthMenu": "Mostrar _MENU_ registros",
             "sZeroRecords": "No se encontraron resultados",
             "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ Usuarios",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 Usuarios",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ Usuarios)",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ Roles",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 Roles",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ Roles)",
             "sInfoPostFix": "",
             "sSearch": "Buscar:",
             "sUrl": "",

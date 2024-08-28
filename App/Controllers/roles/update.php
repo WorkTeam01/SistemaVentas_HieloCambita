@@ -4,22 +4,21 @@ include_once '../../config.php';
 
 $rol = $_POST['rol'];
 $id_rol = $_POST['id_rol'];
-$sentencia = $pdo->prepare("UPDATE tb_roles
-        SET rol = :rol, fyh_actualizacion = :fyh_actualizacion
-        WHERE id_rol = :id_rol");
+$sentencia = $pdo->prepare("UPDATE rol_usuario
+        SET RolUsuario = :RolUsuario
+        WHERE IdRolUsuario = :IdRolUsuario");
 
-$sentencia->bindParam('rol', $rol);
-$sentencia->bindParam('fyh_actualizacion', $fechaHora);
-$sentencia->bindParam('id_rol', $id_rol);
+$sentencia->bindParam('RolUsuario', $rol);
+$sentencia->bindParam('IdRolUsuario', $id_rol);
 
 if ($sentencia->execute()) {
     session_start();
     $_SESSION['mensaje'] = 'EL rol se actualizó exitosamente';
     $_SESSION['icono'] = 'success';
-    header('Location: ' . $URL . '/roles');
+    header('Location: ' . $URL . '/Views/Roles');
 } else {
     session_start();
     $_SESSION['mensaje'] = 'Error al actualizar el rol';
     $_SESSION['icono'] = 'error';
-    header('Location: ' . $URL . '/roles/update.php?id=' . $id_rol);
+    header('Location: ' . $URL . '/Views/Roles/update.php?id=' . $id_rol);
 }
