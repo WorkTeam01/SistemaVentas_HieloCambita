@@ -205,7 +205,7 @@ include_once '../../App/Controllers/categorias/listado_de_categorias.php';
                         <div class="form-group">
                             <label for="nombre_categoria">Nombre de la categoría</label>
                             <input type="text" id="nombre_categoria" class="form-control">
-                            <small class="text-danger d-none" id="lbl_create">* Este campo es necesario rellenar</small>
+                            <small class="text-danger d-none" id="lbl_create">* Debe agregar una categoría</small>
                         </div>
                     </div>
                 </div>

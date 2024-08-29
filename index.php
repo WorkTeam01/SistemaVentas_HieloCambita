@@ -6,6 +6,7 @@ include_once 'Views/Layouts/header.php';
 include_once 'App/Controllers/usuarios/listado_de_usuarios.php';
 include_once 'App/Controllers/roles/listado_de_roles.php';
 include_once 'App/Controllers/categorias/listado_de_categorias.php';
+include_once 'App/Controllers/productos/listado_de_productos.php';
 
 ?>
 
@@ -71,6 +72,23 @@ include_once 'App/Controllers/categorias/listado_de_categorias.php';
                             <i class="fas fa-tag"></i>
                         </div>
                         <a href="<?php echo $URL; ?>/Views/Categorias" class="small-box-footer">
+                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- Tarjeta de productos -->
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3><?php echo $total_productos; ?></h3>
+                            <p>Productos registrados</p>
+                        </div>
+                        <a href="<?php echo $URL; ?>/Views/Productos/create.php">
+                            <div class="icon">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                        </a>
+                        <a href="<?php echo $URL; ?>/Views/Productos" class="small-box-footer">
                             Mas detalles <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>

@@ -127,7 +127,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- Modulo de categorias-->
+                        <!-- Modulo de categorias -->
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tags"></i>
@@ -145,13 +145,36 @@
                                 </li>
                             </ul>
                         </li>
+                        <!-- Modulo de productos -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-boxes-packing"></i>
+                                <p>
+                                    Productos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Productos" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lista de productos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Productos/create.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Crear producto</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="<?php echo $URL; ?>/App/Controllers/login/cerrar_sesion.php" class="nav-link bg-danger">
                                 <i class="nav-icon fas fa-door-closed"></i>
                                 <p>Cerrar sesión</p>
                             </a>
                         </li>
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
