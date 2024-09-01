@@ -84,10 +84,10 @@ include_once '../../App/Controllers/productos/listado_de_productos.php';
                                                 <td>Bs. <?php echo $producto_dato['PrecioVenta']; ?></td>
                                                 <td class="text-center"><?php echo $producto_dato['FechaIngreso']; ?></td>
                                                 <td class="text-center">
-                                                    <div class="btn-group-sm">
-                                                        <a href="show.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
-                                                        <a href="update.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Editar</a>
-                                                        <a href="delete.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                                                    <div class="btn-group">
+                                                        <a href="show.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                                        <a href="update.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                                        <a href="delete.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
                                                     </div>
                                                 </td>
                                             </tr>
