@@ -37,7 +37,7 @@ include_once '../../App/Controllers/roles/update_roles.php';
                         <div class="card-body" style="display: block;">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="<?php echo $URL; ?>/app/controllers/roles/update.php" method="post">
+                                    <form action="<?php echo $URL; ?>/App/Controllers/roles/update.php" method="post">
                                         <input type="text" name="id_rol" class="form-control" value="<?php echo $id_rol_get; ?>" hidden>
                                         <div class="form-group">
                                             <label for="">Rol</label>

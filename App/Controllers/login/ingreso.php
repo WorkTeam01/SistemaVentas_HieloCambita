@@ -20,13 +20,14 @@ foreach ($usuarios as $usuario) {
 }
 
 if (($contador > 0 && password_verify($password_user, $password_user_tabla))) {
-    echo "Datos correctos";
     session_start();
     $_SESSION['sesion_user'] = $user;
+    $_SESSION['mensaje'] = "Bienvenido al sistema de ventas";
+    $_SESSION['icono'] = "info";
     header('Location:' . $URL . '/index.php');
 } else {
-    echo "Datos incorrectos";
     session_start();
     $_SESSION['mensaje'] = "Datos incorrectos";
+    $_SESSION['icono'] = "error";
     header('Location:' . $URL . '/Views/login.php');
 }

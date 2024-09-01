@@ -7,6 +7,8 @@ include_once 'App/Controllers/usuarios/listado_de_usuarios.php';
 include_once 'App/Controllers/roles/listado_de_roles.php';
 include_once 'App/Controllers/categorias/listado_de_categorias.php';
 include_once 'App/Controllers/productos/listado_de_productos.php';
+include_once 'App/Controllers/proveedores/listado_de_proveedores.php';
+include_once 'Views/Layouts/mensajes.php';
 
 ?>
 
@@ -89,6 +91,21 @@ include_once 'App/Controllers/productos/listado_de_productos.php';
                             </div>
                         </a>
                         <a href="<?php echo $URL; ?>/Views/Productos" class="small-box-footer">
+                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- Tarjeta de proveedores -->
+                    <div class="small-box bg-secondary">
+                        <div class="inner">
+                            <h3><?php echo $total_proveedores; ?></h3>
+                            <p>Proveedores registrados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-truck-moving"></i>
+                        </div>
+                        <a href="<?php echo $URL; ?>/Views/Proveedores" class="small-box-footer">
                             Mas detalles <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>

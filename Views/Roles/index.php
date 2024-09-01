@@ -51,9 +51,7 @@ include_once '../../App/Controllers/roles/listado_de_roles.php';
                                                 <td class="text-center"><?php echo $contador += 1; ?></td>
                                                 <td><?php echo $roles_dato['RolUsuario']; ?></td>
                                                 <td class="text-center">
-                                                    <div class="btn-group">
-                                                        <a href="update.php?id=<?php echo $id_rol; ?>" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Editar</a>
-                                                    </div>
+                                                    <a href="update.php?id=<?php echo $id_rol; ?>" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Editar</a>
                                                 </td>
                                             </tr>
                                         <?php } ?>

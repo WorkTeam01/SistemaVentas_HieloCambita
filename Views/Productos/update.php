@@ -72,8 +72,10 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-8">
-                                                        <label>Descripción del producto</label>
-                                                        <textarea type="text" rows="2" name="descripcion" class="form-control"><?php echo $descripcion; ?></textarea>
+                                                        <div class="form-group">
+                                                            <label>Descripción del producto</label>
+                                                            <textarea type="text" rows="2" name="descripcion" class="form-control"><?php echo $descripcion; ?></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -114,7 +116,6 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">

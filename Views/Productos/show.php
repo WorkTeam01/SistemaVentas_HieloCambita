@@ -47,18 +47,24 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label>Categoría</label>
-                                                    <input type="text" value="<?php echo $categoria; ?>" class="form-control" disabled>
+                                                    <div class="form-group">
+                                                        <label>Categoría</label>
+                                                        <input type="text" value="<?php echo $categoria; ?>" class="form-control" disabled>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label>Nombre del producto</label>
-                                                    <input type="text" value="<?php echo $nombre; ?>" class="form-control" disabled>
+                                                    <div class="form-group">
+                                                        <label>Nombre del producto</label>
+                                                        <input type="text" value="<?php echo $nombre; ?>" class="form-control" disabled>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <label>Descripción del producto</label>
-                                                    <textarea type="text" class="form-control" disabled><?php echo $descripcion; ?></textarea>
+                                                    <div class="form-group">
+                                                        <label>Descripción del producto</label>
+                                                        <textarea type="text" class="form-control" disabled><?php echo $descripcion; ?></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -99,7 +105,6 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
