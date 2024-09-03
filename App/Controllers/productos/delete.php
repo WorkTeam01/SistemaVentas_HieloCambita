@@ -6,7 +6,7 @@ $id_producto = $_POST['id_producto'];
 
 // Obtener el nombre de la imagen actual
 $sentencia = $pdo->prepare("SELECT ImagenProducto FROM producto WHERE IdProducto = :IdProducto");
-$sentencia->bindParam('IdProducto', $id_producto);
+$sentencia->bindParam(':IdProducto', $id_producto);
 $sentencia->execute();
 $producto = $sentencia->fetch(PDO::FETCH_ASSOC);
 $imagenActual = $producto['ImagenProducto'];
@@ -18,7 +18,7 @@ if ($imagenActual && $imagenActual != 'producto_default.png' && file_exists("../
 
 // Eliminar el producto
 $sentencia = $pdo->prepare("DELETE FROM producto WHERE IdProducto = :IdProducto");
-$sentencia->bindParam('IdProducto', $id_producto);
+$sentencia->bindParam(':IdProducto', $id_producto);
 
 if ($sentencia->execute()) {
     session_start();

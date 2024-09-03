@@ -13,6 +13,7 @@ if (isset($_SESSION['sesion_user'])) {
     foreach ($usuarios as $usuario) {
         $id_usuario_sesion = $usuario['IdUsuario'];
         $nombres_sesion = $usuario['NombresUsuario'];
+        $apellidos_sesion = $usuario['ApellidosUsuario'];
         $rol_sesion = $usuario['RolUsuario'];
     }
 } else {

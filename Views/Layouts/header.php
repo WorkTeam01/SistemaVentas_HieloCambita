@@ -46,11 +46,6 @@
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
-                    </a>
-                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -183,6 +178,30 @@
                                     <a href="<?php echo $URL; ?>/Views/Proveedores" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Lista de proveedores</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Modulo de abasto -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-shopping-basket"></i>
+                                <p>
+                                    Abasto
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Abasto" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lista de abastos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Abasto/create.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Crear abasto</p>
                                     </a>
                                 </li>
                             </ul>

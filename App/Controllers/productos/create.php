@@ -13,9 +13,7 @@ $precio_compra = $_POST['precio_compra'];
 $precio_venta = $_POST['precio_venta'];
 $fecha_ingreso = $_POST['fecha_ingreso'];
 
-$image = $_POST['image'];
-
-if ($image != "") {
+if (!empty($_FILES['image']['name'])) {
     $nombreDelArchivo = date("Y-m-d-h-i-s");
     $filename = $nombreDelArchivo . "__" . $_FILES['image']['name'];
     $location = "../../../Views/Productos/img_productos/" . $filename;

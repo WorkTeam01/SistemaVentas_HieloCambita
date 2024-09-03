@@ -15,7 +15,7 @@ $precio_venta = $_POST['precio_venta'];
 $fecha_ingreso = $_POST['fecha_ingreso'];
 $image_text = $_POST['image_text'];
 
-if ($_FILES['image']['name'] != null) {
+if (!empty($_FILES['image']['name'])) {
     // Obtener el nombre de la imagen actual
     $sentencia = $pdo->prepare("SELECT ImagenProducto FROM producto WHERE IdProducto = :IdProducto");
     $sentencia->bindParam('IdProducto', $id_producto);

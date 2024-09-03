@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-09-2024 a las 04:40:07
+-- Tiempo de generación: 03-09-2024 a las 03:44:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,6 +34,9 @@ CREATE TABLE IF NOT EXISTS `abasto` (
   `IdProducto` int(11) NOT NULL,
   `IdProveedor` int(11) NOT NULL,
   `IdUsuario` int(11) NOT NULL,
+  `NroAbasto` int(11) NOT NULL,
+  `ComprobanteAbasto` varchar(100) NOT NULL,
+  `PrecioAbasto` decimal(10,2) NOT NULL,
   `CantidadAbasto` int(11) NOT NULL,
   `FechaAbasto` date NOT NULL,
   `Notas` varchar(100) DEFAULT NULL,
@@ -43,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `abasto` (
   KEY `IdProducto` (`IdProducto`),
   KEY `IdProveedor` (`IdProveedor`),
   KEY `IdUsuario` (`IdUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `abasto`:
@@ -54,6 +57,13 @@ CREATE TABLE IF NOT EXISTS `abasto` (
 --   `IdUsuario`
 --       `usuario` -> `IdUsuario`
 --
+
+--
+-- Volcado de datos para la tabla `abasto`
+--
+
+INSERT INTO `abasto` (`IdAbasto`, `IdProducto`, `IdProveedor`, `IdUsuario`, `NroAbasto`, `ComprobanteAbasto`, `PrecioAbasto`, `CantidadAbasto`, `FechaAbasto`, `Notas`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(2, 7, 1, 3, 1, 'Factura', 120.00, 20, '2024-09-02', NULL, '2024-09-02 21:37:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,6 +82,18 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 --
 -- RELACIONES PARA LA TABLA `categoria`:
 --
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`IdCategoria`, `NombreCategoria`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(1, 'Hielos', '2024-08-28 17:37:40', NULL),
+(2, 'Bolsas', '2024-08-28 17:38:05', '2024-08-28 17:42:48'),
+(3, 'Azúcar', '2024-08-29 12:45:49', NULL),
+(4, 'Vasos', '2024-08-29 12:47:52', NULL),
+(5, 'Plásticos', '2024-08-29 12:50:17', NULL),
+(6, 'Aguas', '2024-08-29 12:51:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -247,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `FechaHoraActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`IdProducto`),
   KEY `IdCategoria` (`IdCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `producto`:
@@ -258,6 +280,14 @@ CREATE TABLE IF NOT EXISTS `producto` (
 --
 -- Volcado de datos para la tabla `producto`
 --
+
+INSERT INTO `producto` (`IdProducto`, `CodigoProducto`, `NombreProducto`, `DescripcionProducto`, `Stock`, `StockMinimo`, `StockMaximo`, `PrecioCompra`, `PrecioVenta`, `ImagenProducto`, `FechaIngreso`, `IdCategoria`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(1, 'P-00001', 'Cubitos 2 Kg', 'Cubos de hielo de 2 Kg', 0, 5, 40, 12.00, 15.00, '2024-08-29-12-32-08__caracteristicas-del-hielo-1200x600.jpg', '2024-08-29', 1, '2024-08-29 11:29:51', '2024-08-29 12:40:47'),
+(3, 'P-00003', 'Belen 2 Kg', 'Bolsas negras de marca Belen de 2 kg', 0, 5, 30, 20.00, 25.00, '2024-08-29-06-24-07__Bolsas-32x40-1024x1024.jpg', '2024-08-29', 2, '2024-08-29 12:42:23', '2024-08-29 18:24:07'),
+(6, 'P-00004', 'Barra', 'Hielo en barra', 0, 5, 40, 0.00, 20.00, '2024-08-29-06-22-22__barra.fw_.png', '2024-08-29', 1, '2024-08-29 13:03:11', '2024-08-29 18:22:22'),
+(7, 'P-00004', 'Azúcar blanca de 1 kg', 'Azúcar blanca de 1 Kg de unagro', 20, 5, 20, 4.00, 6.00, '2024-09-01-08-19-04__AzucarUnagro.jpg', '2024-09-01', 3, '2024-09-01 20:18:49', '2024-09-02 21:38:46'),
+(9, 'P-00005', 'Bolsas', '', 0, 5, 25, 5.00, 8.00, '2024-09-02-06-50-58__bolsa-p-basura-90x110-1.jpg', '2024-09-02', 2, '2024-09-02 18:50:58', NULL),
+(10, 'P-00006', 'Cubitos de hielo 3 Kg', 'Cubitos de hielo de 3 Kg', 0, 5, 40, 15.00, 20.00, 'producto_default.png', '2024-09-02', 1, '2024-09-02 18:52:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -275,11 +305,18 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
   `FechaHoraCreacion` datetime DEFAULT current_timestamp(),
   `FechaHoraActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`IdProveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `proveedor`:
 --
+
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `proveedor` (`IdProveedor`, `NombreProveedor`, `EmailProveedor`, `DireccionProveedor`, `CelularProveedor`, `TelefonoProveedor`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(1, 'Unagro', '', 'Pasaje durazno Nº 102, Barrio La Santa Cruz', '78978464', '3437777', '2024-09-01 13:17:03', '2024-09-01 17:20:42');
 
 -- --------------------------------------------------------
 
@@ -317,6 +354,15 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
 --
 -- RELACIONES PARA LA TABLA `rol_usuario`:
 --
+
+--
+-- Volcado de datos para la tabla `rol_usuario`
+--
+
+INSERT INTO `rol_usuario` (`IdRolUsuario`, `RolUsuario`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(1, 'Administrador', '2024-08-27 16:46:04', NULL),
+(2, 'Vendedor', '2024-08-27 16:46:04', NULL),
+(3, 'Comprador', '2024-08-28 15:02:54', '2024-09-01 12:18:35');
 
 -- --------------------------------------------------------
 
@@ -363,6 +409,14 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --   `IdRolUsuario`
 --       `rol_usuario` -> `IdRolUsuario`
 --
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`IdUsuario`, `Usuario`, `NombresUsuario`, `ApellidosUsuario`, `EmailUsuario`, `PasswordUsuario`, `EstadoUsuario`, `IdRolUsuario`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(3, 'Admin', 'Andres', 'Meneces', 'jandrespb4@gmail.com', '$2y$10$6./.duT5yvuKtU92mj1xE.CbxBlh8uWyo5qynA0GJ9Xro7pDrmcmG', 1, 1, '2024-08-27 16:49:25', '2024-08-27 20:27:42'),
+(6, 'Usuario', 'Pruebas', 'Prueba', 'UserTest@gmail.com', '$2y$10$aGQjeBRgKjSP7wekaEYIKuzb4CmqMHAzEiS.vO/K.USe3TYaV3V5K', 0, 2, '2024-08-27 20:28:38', '2024-08-28 13:12:31');
 
 --
 -- Restricciones para tablas volcadas
