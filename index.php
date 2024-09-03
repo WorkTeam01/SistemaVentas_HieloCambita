@@ -8,6 +8,8 @@ include_once 'App/Controllers/roles/listado_de_roles.php';
 include_once 'App/Controllers/categorias/listado_de_categorias.php';
 include_once 'App/Controllers/productos/listado_de_productos.php';
 include_once 'App/Controllers/proveedores/listado_de_proveedores.php';
+include_once 'App/Controllers/abasto/listado_de_abastos.php';
+include_once 'App/Controllers/puesto/listado_de_puestos.php';
 include_once 'Views/Layouts/mensajes.php';
 
 ?>
@@ -106,6 +108,38 @@ include_once 'Views/Layouts/mensajes.php';
                             <i class="fas fa-truck-moving"></i>
                         </div>
                         <a href="<?php echo $URL; ?>/Views/Proveedores" class="small-box-footer">
+                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- Tarjeta de abastos -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3><?php echo $total_abasto; ?></h3>
+                            <p>Abastos registrados</p>
+                        </div>
+                        <a href="<?php echo $URL; ?>/Views/Abasto/create.php">
+                            <div class="icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </a>
+                        <a href="<?php echo $URL; ?>/Views/Abasto" class="small-box-footer">
+                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- Tarjeta de puestos -->
+                    <div class="small-box bg-purple">
+                        <div class="inner">
+                            <h3><?php echo $total_puestos; ?></h3>
+                            <p>Puestos registrados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <a href="<?php echo $URL; ?>/Views/Puesto" class="small-box-footer">
                             Mas detalles <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>

@@ -14,7 +14,7 @@ include_once '../../App/Controllers/categorias/listado_de_categorias.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de categorías
-                        <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-create">
+                        <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
                             <i class="fas fa-plus"></i> Crear nueva
                         </button>
                     </h1>

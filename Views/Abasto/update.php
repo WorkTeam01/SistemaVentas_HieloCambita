@@ -393,7 +393,7 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Comprobante de la compra</label>
+                                                <label>Comprobante del abasto</label>
                                                 <input type="text" class="form-control" id="comprobante" value="<?php echo $comprobante; ?>">
                                                 <small class="text-danger d-none" id="lbl_comprobante">* Este campo es necesario rellenar</small>
                                             </div>
@@ -401,14 +401,14 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Precio del abasto</label>
-                                                <input type="text" class="form-control" id="precio_abasto" value="<?php echo $precio_abasto; ?>">
+                                                <input type="text" class="form-control" id="precio_abasto" value="<?php echo $precio_abasto; ?>" min="0" step="0.01">
                                                 <small class="text-danger d-none" id="lbl_precio_abasto">* Este campo es necesario rellenar</small>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Stock actual</label>
-                                                <input type="text" id="stock_actual" value="<?= $stock  = $stock - $cantidad; ?>" class="form-control bg-warning">
+                                                <input type="text" id="stock_actual" value="<?= $stock  = $stock - $cantidad; ?>" class="form-control bg-warning" min="0">
                                                 <small class="text-danger d-none" id="lbl_stock">* Este campo es necesario rellenar</small>
                                             </div>
                                         </div>
@@ -421,7 +421,7 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Cantidad del abasto</label>
-                                                <input type="number" id="cantidad_abasto" value="<?php echo $cantidad; ?>" class="form-control text-center">
+                                                <input type="number" id="cantidad_abasto" value="<?php echo $cantidad; ?>" class="form-control text-center" min="0">
                                                 <small class="text-danger d-none" id="lbl_cantidad_abasto">* Este campo es necesario rellenar</small>
                                             </div>
                                             <script>

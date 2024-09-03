@@ -14,7 +14,7 @@ include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de proveedores
-                        <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-create">
+                        <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
                             <i class="fas fa-plus"></i> Crear nuevo
                         </button>
                     </h1>

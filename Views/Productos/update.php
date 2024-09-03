@@ -82,31 +82,31 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Stock</label>
-                                                            <input type="number" value="<?php echo $stock; ?>" name="stock" class="form-control" required>
+                                                            <input type="number" value="<?php echo $stock; ?>" name="stock" class="form-control" required min="0">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Stock mínimo</label>
-                                                            <input type="number" value="<?php echo $stock_minimo; ?>" name="stock_minimo" class="form-control">
+                                                            <input type="number" value="<?php echo $stock_minimo; ?>" name="stock_minimo" class="form-control" min="0">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Stock máximo</label>
-                                                            <input type="number" value="<?php echo $stock_maximo; ?>" name="stock_maximo" class="form-control">
+                                                            <input type="number" value="<?php echo $stock_maximo; ?>" name="stock_maximo" class="form-control" min="0">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Precio de compra</label>
-                                                            <input type="number" value="<?php echo $precio_compra; ?>" name="precio_compra" class="form-control" required>
+                                                            <input type="number" value="<?php echo $precio_compra; ?>" name="precio_compra" class="form-control" required min="0" step="0.01">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Precio de venta</label>
-                                                            <input type="number" value="<?php echo $precio_venta; ?>" name="precio_venta" class="form-control" required>
+                                                            <input type="number" value="<?php echo $precio_venta; ?>" name="precio_venta" class="form-control" required min="0" step="0.01">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">

@@ -6,7 +6,7 @@ $user = $_POST['user'];
 $password_user = $_POST['password_user'];
 
 $contador = 0;
-$sql = "SELECT * FROM usuario WHERE Usuario = '$user'";
+$sql = "SELECT * FROM usuario WHERE Usuario = '$user' OR EmailUsuario = '$user'";
 $query = $pdo->prepare($sql);
 $query->execute();
 

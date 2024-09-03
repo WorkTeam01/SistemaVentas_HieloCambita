@@ -401,7 +401,7 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Precio del abasto</label>
-                                                <input type="text" class="form-control" id="precio_abasto">
+                                                <input type="text" class="form-control" id="precio_abasto" min="0" step="0.01">
                                                 <small class="text-danger d-none" id="lbl_precio_abasto">* Debe agregar el precio del abasto</small>
                                             </div>
                                         </div>
@@ -420,7 +420,7 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Cantidad de abasto</label>
-                                                <input type="number" id="cantidad_abasto" class="form-control text-center">
+                                                <input type="number" id="cantidad_abasto" class="form-control text-center" min="0">
                                                 <small class="text-danger d-none" id="lbl_cantidad_abasto">* Debe agregar el precio del abasto</small>
                                             </div>
                                             <script>

@@ -1,7 +1,7 @@
 <?php
 
 $sql_abasto = "SELECT aba.IdAbasto, aba.NroAbasto, aba.ComprobanteAbasto, aba.PrecioAbasto, aba.CantidadAbasto, aba.FechaAbasto, aba.Notas, p.*, pro.NombreProveedor,
-                pro.CelularProveedor, pro.TelefonoProveedor, pro.EmailProveedor, pro.DireccionProveedor, us.NombresUsuario, cat.NombreCategoria
+                pro.CelularProveedor, pro.TelefonoProveedor, pro.EmailProveedor, pro.DireccionProveedor, us.NombresUsuario, us.ApellidosUsuario, cat.NombreCategoria
                 FROM abasto aba
                 INNER JOIN producto p ON aba.IdProducto = p.IdProducto
                 INNER JOIN proveedor pro ON aba.IdProveedor = pro.IdProveedor

@@ -75,8 +75,8 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                                     </div>
                                                 </td>
                                                 <td><?php echo $abasto_dato['ComprobanteAbasto']; ?></td>
-                                                <td><?php echo $abasto_dato['NombresUsuario']; ?></td>
-                                                <td><?php echo $abasto_dato['PrecioAbasto']; ?></td>
+                                                <td><?php echo $abasto_dato['NombresUsuario'] . " " . $abasto_dato['ApellidosUsuario']; ?></td>
+                                                <td>Bs. <?php echo $abasto_dato['PrecioAbasto']; ?></td>
                                                 <td><?php echo $abasto_dato['CantidadAbasto']; ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group">

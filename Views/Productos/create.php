@@ -39,7 +39,7 @@ include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
                                 <div class="col-md-12">
                                     <form action="<?php echo $URL; ?>/App/Controllers/productos/create.php" method="post" enctype="multipart/form-data">
                                         <div class="row">
-                                            <div class="col-md-9">
+                                            <div class="col-md-8">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
@@ -85,48 +85,48 @@ include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
                                                         <label>Descripción del producto</label>
                                                         <textarea type="text" rows="2" name="descripcion" class="form-control"></textarea>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Stock</label>
-                                                            <input type="number" name="stock" class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Stock mínimo</label>
-                                                            <input type="number" name="stock_minimo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Stock máximo</label>
-                                                            <input type="number" name="stock_maximo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Precio de compra</label>
-                                                            <input type="number" name="precio_compra" class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Precio de venta</label>
-                                                            <input type="number" name="precio_venta" class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Fecha de ingreso</label>
                                                             <input type="date" name="fecha_ingreso" class="form-control" required>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label>Stock</label>
+                                                            <input type="number" name="stock" class="form-control" required min="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label>Stock mínimo</label>
+                                                            <input type="number" name="stock_minimo" class="form-control" min="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label>Stock máximo</label>
+                                                            <input type="number" name="stock_maximo" class="form-control" min="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Precio de compra</label>
+                                                            <input type="number" name="precio_compra" class="form-control" required min="0" step="0.01">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Precio de venta</label>
+                                                            <input type="number" name="precio_venta" class="form-control" required min="0" step="0.01">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Imagen del producto</label>
                                                     <input type="file" name="image" class="form-control-file" id="file">
