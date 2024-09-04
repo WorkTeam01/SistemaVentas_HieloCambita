@@ -35,7 +35,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Sistema de Ventas</a>
+                    <a href="<?php echo $URL; ?>" class="nav-link">Sistema de Ventas</a>
                 </li>
             </ul>
 
@@ -220,6 +220,24 @@
                                     <a href="<?php echo $URL; ?>/Views/Puesto" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Lista de puestos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Modulo de tipos de pago -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-money-check"></i>
+                                <p>
+                                    Tipos de pagos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/TipoPago" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lista de tipos de pago</p>
                                     </a>
                                 </li>
                             </ul>

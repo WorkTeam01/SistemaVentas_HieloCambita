@@ -10,6 +10,7 @@ include_once 'App/Controllers/productos/listado_de_productos.php';
 include_once 'App/Controllers/proveedores/listado_de_proveedores.php';
 include_once 'App/Controllers/abasto/listado_de_abastos.php';
 include_once 'App/Controllers/puesto/listado_de_puestos.php';
+include_once 'App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
 include_once 'Views/Layouts/mensajes.php';
 
 ?>
@@ -140,6 +141,21 @@ include_once 'Views/Layouts/mensajes.php';
                             <i class="fas fa-warehouse"></i>
                         </div>
                         <a href="<?php echo $URL; ?>/Views/Puesto" class="small-box-footer">
+                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- Tarjeta de tipos de pagos -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?php echo $total_tipo_pagos; ?></h3>
+                            <p>Tipos de pagos registrados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-money-check-alt"></i>
+                        </div>
+                        <a href="<?php echo $URL; ?>/Views/TipoPago" class="small-box-footer">
                             Mas detalles <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
