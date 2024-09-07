@@ -41,6 +41,7 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
                                             <th class="text-center">Nombres</th>
                                             <th class="text-center">Email</th>
                                             <th class="text-center">Rol</th>
+                                            <th class="text-center">Puesto</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
@@ -57,6 +58,7 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
                                                 <td><?php echo $usuarios_dato['NombresUsuario']; ?></td>
                                                 <td><?php echo $usuarios_dato['EmailUsuario']; ?></td>
                                                 <td><?php echo $usuarios_dato['RolUsuario']; ?></td>
+                                                <td><?php echo $usuarios_dato['NombrePuesto']; ?></td>
                                                 <td class="text-center">
                                                     <?php if ($estado_usuario === 1) { ?>
                                                         <button class="btn btn-success btn-sm">Activo</button>

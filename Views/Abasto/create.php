@@ -253,10 +253,9 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                                                         <tr>
                                                                             <th class="text-center">Nro</th>
                                                                             <th class="text-center">Seleccionar</th>
-                                                                            <th class="text-center">Nombre de proveedor</th>
+                                                                            <th class="text-center">Proveedor</th>
                                                                             <th class="text-center">Celular</th>
                                                                             <th class="text-center">Telefono</th>
-                                                                            <th class="text-center">Empresa</th>
                                                                             <th class="text-center">Email</th>
                                                                             <th class="text-center">Dirección</th>
                                                                         </tr>
@@ -394,8 +393,10 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Comprobante del abasto</label>
-                                                <input type="text" class="form-control" id="comprobante">
-                                                <small class="text-danger d-none" id="lbl_comprobante">* Debe agregar el comprobante del abasto</small>
+                                                <select name="comprobante" id="comprobante" class="form-control">
+                                                    <option value="Factura">Factura</option>
+                                                    <option value="QR">QR</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -481,13 +482,6 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                                 return;
                                             } else {
                                                 $('#lbl_fecha_abasto').addClass('d-none');
-                                            }
-                                            if (comprobante == "") {
-                                                $('#comprobante').focus();
-                                                $('#lbl_comprobante').removeClass('d-none');
-                                                return;
-                                            } else {
-                                                $('#lbl_comprobante').addClass('d-none');
                                             }
                                             if (id_usuario == "") {
                                                 $('#id_usuario').focus();

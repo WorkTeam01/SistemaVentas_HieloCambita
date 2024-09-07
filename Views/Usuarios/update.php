@@ -6,6 +6,7 @@ include_once '../../Views/Layouts/header.php';
 
 include_once '../../App/Controllers/usuarios/show_usuario.php';
 include_once '../../App/Controllers/roles/listado_de_roles.php';
+include_once '../../App/Controllers/puesto/listado_de_puestos.php';
 
 ?>
 
@@ -71,6 +72,18 @@ include_once '../../App/Controllers/roles/listado_de_roles.php';
                                                     $id_rol = $roles_dato['IdRolUsuario']; ?>
                                                     <option value="<?php echo $id_rol; ?>" <?php if ($rol_tabla == $rol) { ?> selected="selected" <?php } ?>>
                                                         <?php echo $rol_tabla; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Puesto</label>
+                                            <select name="puesto" class="form-control" required>
+                                                <?php foreach ($puestos_datos as $puestos_dato) {
+                                                    $puesto_tabla = $puestos_dato['NombrePuesto'];
+                                                    $id_puesto = $puestos_dato['IdPuesto']; ?>
+                                                    <option value="<?php echo $id_puesto; ?>" <?php if ($puesto_tabla == $rol) { ?> selected="selected" <?php } ?>>
+                                                        <?php echo $puesto_tabla; ?>
                                                     </option>
                                                 <?php } ?>
                                             </select>

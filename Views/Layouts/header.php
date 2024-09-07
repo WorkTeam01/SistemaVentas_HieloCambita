@@ -242,6 +242,54 @@
                                 </li>
                             </ul>
                         </li>
+                        <!-- Modulo de clientes -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>
+                                    Clientes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Clientes" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lista de clientes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Clientes/create.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Crear cliente</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Modulo de pedidos -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-shopping-cart"></i>
+                                <p>
+                                    Pedidos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Pedidos" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lista de pedidos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo $URL; ?>/Views/Pedidos/create.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Crear pedido</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="<?php echo $URL; ?>/App/Controllers/login/cerrar_sesion.php" class="nav-link bg-danger">
                                 <i class="nav-icon fas fa-door-closed"></i>

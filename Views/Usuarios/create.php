@@ -5,6 +5,7 @@ include_once '../../Views/Layouts/sesion.php';
 include_once '../../Views/Layouts/header.php';
 
 include_once '../../App/Controllers/roles/listado_de_roles.php';
+include_once '../../App/Controllers/puesto/listado_de_puestos.php';
 
 ?>
 
@@ -59,6 +60,14 @@ include_once '../../App/Controllers/roles/listado_de_roles.php';
                                             <select name="rol" id="rol" class="form-control">
                                                 <?php foreach ($roles_datos as $roles_dato) { ?>
                                                     <option value="<?php echo $roles_dato['IdRolUsuario']; ?>"><?php echo $roles_dato['RolUsuario']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="puesto">Puesto</label>
+                                            <select name="puesto" id="puesto" class="form-control">
+                                                <?php foreach ($puestos_datos as $puestos_dato) { ?>
+                                                    <option value="<?php echo $puestos_dato['IdPuesto']; ?>"><?php echo $puestos_dato['NombrePuesto']; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

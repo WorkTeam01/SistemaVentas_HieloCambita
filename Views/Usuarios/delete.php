@@ -64,6 +64,10 @@ include_once '../../App/Controllers/usuarios/show_usuario.php';
                                                     <input type="text" value="<?php echo $rol; ?>" class="form-control" disabled>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="">Puesto</label>
+                                                    <input type="text" value="<?php echo $puesto; ?>" class="form-control" disabled>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="">Estado</label>
                                                     <input type="text" value="<?php echo $estado_usuario; ?>" class="form-control" disabled>
                                                 </div>

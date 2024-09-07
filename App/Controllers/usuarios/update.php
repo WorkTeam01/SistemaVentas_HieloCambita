@@ -8,6 +8,7 @@ $apellidos = $_POST['apellidos'];
 $email = $_POST['email'];
 $estado = isset($_POST['estado']) ? 1 : 0;
 $rol = $_POST['rol'];
+$puesto = $_POST['puesto'];
 $password_user = $_POST['password_user'];
 $password_repeat = $_POST['password_repeat'];
 $id_usuario = $_POST['id_usuario'];
@@ -15,7 +16,7 @@ $id_usuario = $_POST['id_usuario'];
 if ($password_user == "") {
     $sentencia = $pdo->prepare("UPDATE usuario
         SET Usuario = :Usuario, NombresUsuario = :NombresUsuario, ApellidosUsuario = :ApellidosUsuario,
-        EmailUsuario = :EmailUsuario, EstadoUsuario = :EstadoUsuario, IdRolUsuario = :IdRolUsuario
+        EmailUsuario = :EmailUsuario, EstadoUsuario = :EstadoUsuario, IdRolUsuario = :IdRolUsuario, IdPuesto = :IdPuesto
         WHERE IdUsuario = :IdUsuario");
 
     $sentencia->bindParam('Usuario', $usuario);
@@ -24,6 +25,7 @@ if ($password_user == "") {
     $sentencia->bindParam('EmailUsuario', $email);
     $sentencia->bindParam('EstadoUsuario', $estado);
     $sentencia->bindParam('IdRolUsuario', $rol);
+    $sentencia->bindParam('IdPuesto', $puesto);
     $sentencia->bindParam('IdUsuario', $id_usuario);
     $sentencia->execute();
 
