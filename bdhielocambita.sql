@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2024 a las 02:33:32
+-- Tiempo de generación: 09-09-2024 a las 03:19:52
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `abasto` (
   `IdProducto` int(11) NOT NULL,
   `IdProveedor` int(11) NOT NULL,
   `IdUsuario` int(11) NOT NULL,
+  `IdPuesto` int(11) NOT NULL,
   `NroAbasto` int(11) NOT NULL,
   `ComprobanteAbasto` varchar(100) NOT NULL,
   `PrecioAbasto` decimal(10,2) NOT NULL,
@@ -45,8 +46,9 @@ CREATE TABLE IF NOT EXISTS `abasto` (
   PRIMARY KEY (`IdAbasto`),
   KEY `IdProducto` (`IdProducto`),
   KEY `IdProveedor` (`IdProveedor`),
-  KEY `IdUsuario` (`IdUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `IdUsuario` (`IdUsuario`),
+  KEY `IdPuesto` (`IdPuesto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `abasto`:
@@ -56,15 +58,21 @@ CREATE TABLE IF NOT EXISTS `abasto` (
 --       `proveedor` -> `IdProveedor`
 --   `IdUsuario`
 --       `usuario` -> `IdUsuario`
+--   `IdPuesto`
+--       `puesto` -> `IdPuesto`
 --
 
+--
+-- Truncar tablas antes de insertar `abasto`
+--
+
+TRUNCATE TABLE `abasto`;
 --
 -- Volcado de datos para la tabla `abasto`
 --
 
-INSERT INTO `abasto` (`IdAbasto`, `IdProducto`, `IdProveedor`, `IdUsuario`, `NroAbasto`, `ComprobanteAbasto`, `PrecioAbasto`, `CantidadAbasto`, `FechaAbasto`, `Notas`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
-(1, 7, 1, 1, 1, 'Factura', 4.00, 1, '2024-09-05', NULL, '2024-09-05 18:38:05', NULL),
-(2, 7, 1, 1, 2, 'Factura', 40.00, 10, '2024-09-06', NULL, '2024-09-06 17:17:11', NULL);
+INSERT INTO `abasto` (`IdAbasto`, `IdProducto`, `IdProveedor`, `IdUsuario`, `IdPuesto`, `NroAbasto`, `ComprobanteAbasto`, `PrecioAbasto`, `CantidadAbasto`, `FechaAbasto`, `Notas`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(1, 2, 1, 1, 1, 1, 'Factura', 80.00, 20, '2024-09-08', NULL, '2024-09-08 19:45:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,6 +92,11 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 -- RELACIONES PARA LA TABLA `categoria`:
 --
 
+--
+-- Truncar tablas antes de insertar `categoria`
+--
+
+TRUNCATE TABLE `categoria`;
 --
 -- Volcado de datos para la tabla `categoria`
 --
@@ -121,6 +134,11 @@ CREATE TABLE IF NOT EXISTS `cjuridico` (
 --
 
 --
+-- Truncar tablas antes de insertar `cjuridico`
+--
+
+TRUNCATE TABLE `cjuridico`;
+--
 -- Volcado de datos para la tabla `cjuridico`
 --
 
@@ -147,6 +165,11 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- RELACIONES PARA LA TABLA `cliente`:
 --
 
+--
+-- Truncar tablas antes de insertar `cliente`
+--
+
+TRUNCATE TABLE `cliente`;
 --
 -- Volcado de datos para la tabla `cliente`
 --
@@ -183,6 +206,11 @@ CREATE TABLE IF NOT EXISTS `cnatural` (
 --
 
 --
+-- Truncar tablas antes de insertar `cnatural`
+--
+
+TRUNCATE TABLE `cnatural`;
+--
 -- Volcado de datos para la tabla `cnatural`
 --
 
@@ -208,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `detalle_pedido` (
   PRIMARY KEY (`IdDetallePedido`),
   KEY `IdProducto` (`IdProducto`),
   KEY `NroPedido` (`NroPedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `detalle_pedido`:
@@ -217,12 +245,16 @@ CREATE TABLE IF NOT EXISTS `detalle_pedido` (
 --
 
 --
+-- Truncar tablas antes de insertar `detalle_pedido`
+--
+
+TRUNCATE TABLE `detalle_pedido`;
+--
 -- Volcado de datos para la tabla `detalle_pedido`
 --
 
 INSERT INTO `detalle_pedido` (`IdDetallePedido`, `NroPedido`, `IdProducto`, `Cantidad`, `Precio`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
-(7, 1, 7, 5, 6.00, '2024-09-06 20:08:36', NULL),
-(9, 3, 7, 1, 6.00, '2024-09-06 20:10:01', NULL);
+(1, 1, 2, 5, 6.00, '2024-09-08 20:17:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -239,14 +271,16 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `IdTipoPago` int(11) NOT NULL,
   `IdUsuario` int(11) NOT NULL,
   `IdCliente` int(11) NOT NULL,
+  `IdPuesto` int(11) NOT NULL,
   `FechaHoraCreacion` datetime DEFAULT current_timestamp(),
   `FechaHoraActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`IdPedido`),
   KEY `IdUsuario` (`IdUsuario`),
   KEY `IdCliente` (`IdCliente`),
   KEY `NroPedido` (`NroPedido`),
-  KEY `IdTipoPago` (`IdTipoPago`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `IdTipoPago` (`IdTipoPago`),
+  KEY `IdPuesto` (`IdPuesto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `pedido`:
@@ -258,15 +292,21 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 --       `detalle_pedido` -> `NroPedido`
 --   `IdTipoPago`
 --       `tipo_pago` -> `IdTipoPago`
+--   `IdPuesto`
+--       `puesto` -> `IdPuesto`
 --
 
+--
+-- Truncar tablas antes de insertar `pedido`
+--
+
+TRUNCATE TABLE `pedido`;
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`IdPedido`, `NroPedido`, `FechaPedido`, `MontoPago`, `EstadoPedido`, `IdTipoPago`, `IdUsuario`, `IdCliente`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
-(5, 1, '2024-09-06', 30.00, 1, 1, 1, 1, '2024-09-06 20:08:52', NULL),
-(7, 3, '2024-09-06', 6.00, 1, 1, 1, 6, '2024-09-06 20:10:15', NULL);
+INSERT INTO `pedido` (`IdPedido`, `NroPedido`, `FechaPedido`, `MontoPago`, `EstadoPedido`, `IdTipoPago`, `IdUsuario`, `IdCliente`, `IdPuesto`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(1, 1, '2024-09-08', 30.00, 1, 1, 1, 1, 1, '2024-09-08 20:18:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -287,29 +327,33 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `ImagenProducto` text NOT NULL DEFAULT '\'producto_default.png\'',
   `FechaIngreso` date NOT NULL,
   `IdCategoria` int(11) NOT NULL,
+  `IdPuesto` int(11) NOT NULL,
   `FechaHoraCreacion` datetime DEFAULT current_timestamp(),
   `FechaHoraActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`IdProducto`),
-  KEY `IdCategoria` (`IdCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `IdCategoria` (`IdCategoria`),
+  KEY `IdPuesto` (`IdPuesto`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `producto`:
 --   `IdCategoria`
 --       `categoria` -> `IdCategoria`
+--   `IdPuesto`
+--       `puesto` -> `IdPuesto`
 --
 
+--
+-- Truncar tablas antes de insertar `producto`
+--
+
+TRUNCATE TABLE `producto`;
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`IdProducto`, `CodigoProducto`, `NombreProducto`, `DescripcionProducto`, `Stock`, `StockMinimo`, `StockMaximo`, `PrecioCompra`, `PrecioVenta`, `ImagenProducto`, `FechaIngreso`, `IdCategoria`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
-(1, 'P-00001', 'Cubitos 2 Kg', 'Cubos de hielo de 2 Kg', 0, 5, 40, 12.00, 15.00, '2024-08-29-12-32-08__caracteristicas-del-hielo-1200x600.jpg', '2024-08-29', 1, '2024-08-29 11:29:51', '2024-08-29 12:40:47'),
-(3, 'P-00003', 'Belen 2 Kg', 'Bolsas negras de marca Belen de 2 kg', 0, 5, 30, 20.00, 25.00, '2024-08-29-06-24-07__Bolsas-32x40-1024x1024.jpg', '2024-08-29', 2, '2024-08-29 12:42:23', '2024-08-29 18:24:07'),
-(6, 'P-00004', 'Barra', 'Hielo en barra', 0, 5, 40, 0.00, 20.00, '2024-08-29-06-22-22__barra.fw_.png', '2024-08-29', 1, '2024-08-29 13:03:11', '2024-08-29 18:22:22'),
-(7, 'P-00004', 'Azúcar blanca de 1 kg', 'Azúcar blanca de 1 Kg de unagro', 35, 5, 20, 4.00, 6.00, '2024-09-01-08-19-04__AzucarUnagro.jpg', '2024-09-01', 3, '2024-09-01 20:18:49', '2024-09-06 20:25:05'),
-(9, 'P-00005', 'Bolsas', '', 0, 5, 25, 5.00, 8.00, '2024-09-02-06-50-58__bolsa-p-basura-90x110-1.jpg', '2024-09-02', 2, '2024-09-02 18:50:58', NULL),
-(10, 'P-00006', 'Cubitos de hielo 3 Kg', 'Cubitos de hielo de 3 Kg', 0, 5, 40, 15.00, 20.00, 'producto_default.png', '2024-09-02', 1, '2024-09-02 18:52:01', NULL);
+INSERT INTO `producto` (`IdProducto`, `CodigoProducto`, `NombreProducto`, `DescripcionProducto`, `Stock`, `StockMinimo`, `StockMaximo`, `PrecioCompra`, `PrecioVenta`, `ImagenProducto`, `FechaIngreso`, `IdCategoria`, `IdPuesto`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
+(2, 'P-00001', 'Azúcar unagro', 'Azúcar unagro de 1 Kg', 15, 10, 40, 4.00, 6.00, '2024-09-08-02-25-55__AzucarUnagro.jpg', '2024-09-08', 3, 1, '2024-09-08 02:25:55', '2024-09-08 20:18:40');
 
 -- --------------------------------------------------------
 
@@ -334,6 +378,11 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
 --
 
 --
+-- Truncar tablas antes de insertar `proveedor`
+--
+
+TRUNCATE TABLE `proveedor`;
+--
 -- Volcado de datos para la tabla `proveedor`
 --
 
@@ -353,18 +402,25 @@ CREATE TABLE IF NOT EXISTS `puesto` (
   `FechaHoraCreacion` datetime DEFAULT current_timestamp(),
   `FechaHoraActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`IdPuesto`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELACIONES PARA LA TABLA `puesto`:
 --
 
 --
+-- Truncar tablas antes de insertar `puesto`
+--
+
+TRUNCATE TABLE `puesto`;
+--
 -- Volcado de datos para la tabla `puesto`
 --
 
 INSERT INTO `puesto` (`IdPuesto`, `NombrePuesto`, `UbicacionPuesto`, `FechaHoraCreacion`, `FechaHoraActualizacion`) VALUES
-(1, 'Puesto principal', 'Mercado Abasto', '2024-09-03 14:04:07', '2024-09-03 14:17:07');
+(1, 'Puesto principal', 'Mercado Abasto', '2024-09-03 14:04:07', '2024-09-03 14:17:07'),
+(2, 'Segundo puesto', 'Mercado abasto', '2024-09-08 02:13:42', NULL),
+(3, 'Tercer puesto', 'Mercado abasto', '2024-09-08 02:14:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -384,6 +440,11 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
 -- RELACIONES PARA LA TABLA `rol_usuario`:
 --
 
+--
+-- Truncar tablas antes de insertar `rol_usuario`
+--
+
+TRUNCATE TABLE `rol_usuario`;
 --
 -- Volcado de datos para la tabla `rol_usuario`
 --
@@ -411,6 +472,11 @@ CREATE TABLE IF NOT EXISTS `tipo_pago` (
 -- RELACIONES PARA LA TABLA `tipo_pago`:
 --
 
+--
+-- Truncar tablas antes de insertar `tipo_pago`
+--
+
+TRUNCATE TABLE `tipo_pago`;
 --
 -- Volcado de datos para la tabla `tipo_pago`
 --
@@ -451,6 +517,11 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 --
+-- Truncar tablas antes de insertar `usuario`
+--
+
+TRUNCATE TABLE `usuario`;
+--
 -- Volcado de datos para la tabla `usuario`
 --
 
@@ -467,7 +538,8 @@ INSERT INTO `usuario` (`IdUsuario`, `Usuario`, `NombresUsuario`, `ApellidosUsuar
 ALTER TABLE `abasto`
   ADD CONSTRAINT `abasto_ibfk_1` FOREIGN KEY (`IdProducto`) REFERENCES `producto` (`IdProducto`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `abasto_ibfk_2` FOREIGN KEY (`IdProveedor`) REFERENCES `proveedor` (`IdProveedor`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `abasto_ibfk_3` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `abasto_ibfk_3` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `abasto_ibfk_4` FOREIGN KEY (`IdPuesto`) REFERENCES `puesto` (`IdPuesto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `cjuridico`
@@ -494,13 +566,15 @@ ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `pedido_ibfk_4` FOREIGN KEY (`NroPedido`) REFERENCES `detalle_pedido` (`NroPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `pedido_ibfk_5` FOREIGN KEY (`IdTipoPago`) REFERENCES `tipo_pago` (`IdTipoPago`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `pedido_ibfk_5` FOREIGN KEY (`IdTipoPago`) REFERENCES `tipo_pago` (`IdTipoPago`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `pedido_ibfk_6` FOREIGN KEY (`IdPuesto`) REFERENCES `puesto` (`IdPuesto`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria` (`IdCategoria`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria` (`IdCategoria`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`IdPuesto`) REFERENCES `puesto` (`IdPuesto`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`

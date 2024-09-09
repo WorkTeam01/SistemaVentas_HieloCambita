@@ -90,7 +90,7 @@ include_once '../../App/Controllers/tipo_pago/cargar_tipo_pago.php';
                                                             $cantidad = floatval($detalle_pedido_dato['Cantidad']);
                                                             $precio_venta = floatval($detalle_pedido_dato['Precio']);
                                                             echo $subtotal = $cantidad * $precio_venta;
-                                                            $precio_total = $precio_total + $subtotal;
+                                                            $precio_total += $subtotal;
                                                             ?>
                                                         </td>
                                                     </tr>
@@ -220,6 +220,10 @@ include_once '../../App/Controllers/tipo_pago/cargar_tipo_pago.php';
                             <div class="form-group">
                                 <label>Fecha del pedido</label>
                                 <input type="date" class="form-control text-center" value="<?php echo $fecha_pedido; ?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Puesto del pedido</label>
+                                <input type="text" class="form-control text-center" value="<?php echo $nombre_puesto; ?>" disabled>
                             </div>
                             <div class="form-group">
                                 <label>Monto a cancelado</label>

@@ -6,6 +6,7 @@ include_once '../../Views/Layouts/header.php';
 
 include_once '../../App/Controllers/categorias/listado_de_categorias.php';
 include_once '../../App/Controllers/productos/cargar_producto.php';
+include_once '../../App/Controllers/puesto/listado_de_puestos.php';
 
 ?>
 
@@ -75,6 +76,23 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                         <div class="form-group">
                                                             <label>Descripción del producto</label>
                                                             <textarea type="text" rows="2" name="descripcion" class="form-control"><?php echo $descripcion; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Puesto</label>
+                                                            <div class="d-flex">
+                                                                <select name="id_puesto" class="form-control mr-2" required>
+                                                                    <?php foreach ($puestos_datos as $puestos_dato) {
+                                                                        $nombre_puesto_tabla = $puestos_dato['NombrePuesto'];
+                                                                        $id_puesto = $puestos_dato['IdPuesto'];
+                                                                    ?>
+                                                                        <option value="<?php echo $id_puesto; ?>" <?php if ($nombre_puesto_tabla == $puesto_producto) { ?> selected="selected" <?php } ?>>
+                                                                            <?php echo $nombre_puesto_tabla; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

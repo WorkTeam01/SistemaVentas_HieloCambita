@@ -4,6 +4,7 @@ include_once '../../config.php';
 
 $codigo = $_POST['codigo'];
 $id_categoria = $_POST['id_categoria'];
+$id_puesto = $_POST['id_puesto'];
 $nombre = $_POST['nombre'];
 $descripcion = $_POST['descripcion'];
 $stock = $_POST['stock'];
@@ -24,8 +25,8 @@ if (!empty($_FILES['image']['name'])) {
 }
 
 $sentencia = $pdo->prepare("INSERT INTO producto
-            (CodigoProducto, NombreProducto, DescripcionProducto, Stock, StockMinimo, StockMaximo, PrecioCompra, PrecioVenta, FechaIngreso, ImagenProducto, IdCategoria) 
-    VALUES  (:CodigoProducto, :NombreProducto, :DescripcionProducto, :Stock, :StockMinimo, :StockMaximo, :PrecioCompra, :PrecioVenta, :FechaIngreso, :ImagenProducto, :IdCategoria)");
+            (CodigoProducto, NombreProducto, DescripcionProducto, Stock, StockMinimo, StockMaximo, PrecioCompra, PrecioVenta, FechaIngreso, ImagenProducto, IdCategoria, IdPuesto) 
+    VALUES  (:CodigoProducto, :NombreProducto, :DescripcionProducto, :Stock, :StockMinimo, :StockMaximo, :PrecioCompra, :PrecioVenta, :FechaIngreso, :ImagenProducto, :IdCategoria, :IdPuesto)");
 
 $sentencia->bindParam('CodigoProducto', $codigo);
 $sentencia->bindParam('NombreProducto', $nombre);
@@ -38,6 +39,7 @@ $sentencia->bindParam('PrecioVenta', $precio_venta);
 $sentencia->bindParam('FechaIngreso', $fecha_ingreso);
 $sentencia->bindParam('ImagenProducto', $filename);
 $sentencia->bindParam('IdCategoria', $id_categoria);
+$sentencia->bindParam('IdPuesto', $id_puesto);
 
 if ($sentencia->execute()) {
     session_start();

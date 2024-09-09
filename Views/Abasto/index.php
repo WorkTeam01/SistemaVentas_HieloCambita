@@ -41,9 +41,9 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                             <th class="text-center">Nro</th>
                                             <th class="text-center">Nro del abasto</th>
                                             <th class="text-center">Producto</th>
-                                            <th class="text-center">Fecha de compra</th>
+                                            <th class="text-center">Fecha del abasto</th>
                                             <th class="text-center">Proveedor</th>
-                                            <th class="text-center">Comprobante</th>
+                                            <th class="text-center">Puesto</th>
                                             <th class="text-center">Usuario</th>
                                             <th class="text-center">Precio compra</th>
                                             <th class="text-center">Cantidad</th>
@@ -74,10 +74,10 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                                         </button>
                                                     </div>
                                                 </td>
-                                                <td><?php echo $abasto_dato['ComprobanteAbasto']; ?></td>
+                                                <td><?php echo $abasto_dato['NombrePuesto']; ?></td>
                                                 <td><?php echo $abasto_dato['NombresUsuario'] . " " . $abasto_dato['ApellidosUsuario']; ?></td>
-                                                <td>Bs. <?php echo $abasto_dato['PrecioAbasto']; ?></td>
-                                                <td><?php echo $abasto_dato['CantidadAbasto']; ?></td>
+                                                <td class="text-center">Bs. <?php echo $abasto_dato['PrecioAbasto']; ?></td>
+                                                <td class="text-center"><?php echo $abasto_dato['CantidadAbasto']; ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_abasto; ?>" type="button" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
@@ -104,7 +104,7 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
     $id_abasto = $abasto_dato['IdAbasto']; ?>
     <!-- Modal datos de productos -->
     <div class="modal fade" id="modal-producto<?php echo $id_abasto; ?>" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel<?php echo $id_abasto; ?>" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h4 class="modal-title" id="productoModalLabel<?php echo $id_abasto; ?>">Detalle de producto</h4>
@@ -180,6 +180,12 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                         <input type="text" class="form-control" value="<?php echo $abasto_dato['NombreCategoria']; ?>" disabled>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Puesto</label>
+                                        <input type="text" class="form-control" value="<?php echo $abasto_dato['NombrePuesto']; ?>" disabled>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -244,7 +250,7 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="codigo">Dirección del proveedor</label>
                                         <textarea class="form-control" rows="3" disabled><?php echo $abasto_dato['DireccionProveedor']; ?></textarea>

@@ -66,6 +66,12 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                         <textarea type="text" class="form-control" disabled><?php echo $descripcion; ?></textarea>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Puesto</label>
+                                                        <input type="text" class="form-control" value="<?php echo $puesto_producto; ?>" disabled>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-2">

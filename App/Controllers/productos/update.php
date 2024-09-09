@@ -5,6 +5,7 @@ include_once '../../config.php';
 $id_producto = $_POST['id_producto'];
 $codigo = $_POST['codigo'];
 $id_categoria = $_POST['id_categoria'];
+$id_puesto = $_POST['id_puesto'];
 $nombre = $_POST['nombre'];
 $descripcion = $_POST['descripcion'];
 $stock = $_POST['stock'];
@@ -38,7 +39,7 @@ if (!empty($_FILES['image']['name'])) {
 $sentencia = $pdo->prepare("UPDATE producto
     SET NombreProducto = :NombreProducto, DescripcionProducto = :DescripcionProducto, Stock = :Stock, StockMinimo = :StockMinimo,
         StockMaximo = :StockMaximo, PrecioCompra = :PrecioCompra, PrecioVenta = :PrecioVenta,
-        FechaIngreso = :FechaIngreso, ImagenProducto = :ImagenProducto, IdCategoria = :IdCategoria
+        FechaIngreso = :FechaIngreso, ImagenProducto = :ImagenProducto, IdCategoria = :IdCategoria, IdPuesto = :IdPuesto
     WHERE IdProducto = :IdProducto");
 
 $sentencia->bindParam('NombreProducto', $nombre);
@@ -51,6 +52,7 @@ $sentencia->bindParam('PrecioVenta', $precio_venta);
 $sentencia->bindParam('FechaIngreso', $fecha_ingreso);
 $sentencia->bindParam('ImagenProducto', $image_text);
 $sentencia->bindParam('IdCategoria', $id_categoria);
+$sentencia->bindParam('IdPuesto', $id_puesto);
 $sentencia->bindParam('IdProducto', $id_producto);
 
 if ($sentencia->execute()) {

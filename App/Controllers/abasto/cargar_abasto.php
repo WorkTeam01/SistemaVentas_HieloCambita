@@ -4,12 +4,13 @@ $id_abasto_get = $_GET['id'];
 
 $sql_abasto = "SELECT aba.IdAbasto, aba.NroAbasto, aba.ComprobanteAbasto, aba.PrecioAbasto, aba.CantidadAbasto, aba.FechaAbasto, 
                 p.*, pro.IdProveedor, pro.NombreProveedor, pro.CelularProveedor, pro.TelefonoProveedor, pro.EmailProveedor, pro.DireccionProveedor,
-                us.NombresUsuario, us.ApellidosUsuario, cat.NombreCategoria
+                us.NombresUsuario, us.ApellidosUsuario, cat.NombreCategoria, pue.IdPuesto, pue.NombrePuesto
                 FROM abasto aba
                 INNER JOIN producto p ON aba.IdProducto = p.IdProducto
                 INNER JOIN proveedor pro ON aba.IdProveedor = pro.IdProveedor
                 INNER JOIN usuario us ON aba.IdUsuario = us.IdUsuario
                 INNER JOIN categoria cat ON p.IdCategoria = cat.IdCategoria
+                INNER JOIN puesto pue on aba.IdPuesto = pue.IdPuesto
                 WHERE aba.IdAbasto = '$id_abasto_get'";
 
 $query_compra = $pdo->query($sql_abasto);
@@ -37,6 +38,8 @@ foreach ($abasto_dato as $abasto_dato) {
     $precio_venta = $abasto_dato['PrecioVenta'];
     $fecha_ingreso = $abasto_dato['FechaIngreso'];
     $imagen = $abasto_dato['ImagenProducto'];
+    $id_puesto_tabla = $abasto_dato['IdPuesto'];
+    $puesto = $abasto_dato['NombrePuesto'];
 
     $id_proveedor_tabla = $abasto_dato['IdProveedor'];
     $nombre_proveedor_tabla = $abasto_dato['NombreProveedor'];

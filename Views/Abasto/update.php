@@ -7,6 +7,7 @@ include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/productos/listado_de_productos.php';
 include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
 include_once '../../App/Controllers/abasto/cargar_abasto.php';
+include_once '../../App/Controllers/puesto/listado_de_puestos.php';
 
 ?>
 
@@ -155,37 +156,43 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                     <div class="row" style="font-size: 14px;">
                                         <div class="col-md-9">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <input type="text" id="id_producto" value="<?php echo $id_producto_tabla ?>" class="form-control" hidden>
                                                         <label>Código</label>
                                                         <input type="text" id="codigo" value="<?php echo $codigo; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Categoría</label>
                                                         <input type="text" id="categoria" value="<?php echo $nombre_categoria; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Nombre del producto</label>
                                                         <input type="text" id="nombre_producto" value="<?php echo $nombre_producto; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Puesto del producto</label>
+                                                        <input type="text" id="puesto" value="<?php echo $puesto; ?>" class="form-control" disabled>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     <div class="form-group">
                                                         <label>Descripción del producto</label>
                                                         <textarea type="text" rows="3" id="descripcion_producto" class="form-control" disabled><?php echo $descripcion_producto; ?></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Fecha de ingreso</label>
-                                                        <input type="text" id="fecha_ingreso" value="<?php echo $fecha_ingreso; ?>" class="form-control" disabled>
+                                                        <input type="text" id="fecha_ingreso" value="<?php echo $fecha_ingreso; ?>" class="form-control text-center" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,31 +200,31 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Stock</label>
-                                                        <input type="text" id="stock" value="<?php echo $stock; ?>" class="form-control bg-warning" disabled>
+                                                        <input type="text" id="stock" value="<?php echo $stock; ?>" class="form-control bg-warning text-center" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Stock mínimo</label>
-                                                        <input type="text" id="stock_minimo" value="<?php echo $stock_minimo; ?>" class="form-control" disabled>
+                                                        <input type="text" id="stock_minimo" value="<?php echo $stock_minimo; ?>" class="form-control text-center" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Stock máximo</label>
-                                                        <input type="text" id="stock_maximo" value="<?php echo $stock_maximo; ?>" class="form-control" disabled>
+                                                        <input type="text" id="stock_maximo" value="<?php echo $stock_maximo; ?>" class="form-control text-center" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Precio de compra</label>
-                                                        <input type="text" id="precio_compra" value="<?php echo $precio_compra; ?>" class="form-control" disabled>
+                                                        <input type="text" id="precio_compra" value="<?php echo $precio_compra; ?>" class="form-control text-center" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Precio de venta</label>
-                                                        <input type="text" id="precio_venta" value="<?php echo $precio_venta; ?>" class="form-control" disabled>
+                                                        <input type="text" id="precio_venta" value="<?php echo $precio_venta; ?>" class="form-control text-center" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -380,42 +387,46 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Número del abasto</label>
-                                                <input type="text" class="form-control" value="<?php echo $nro_abasto ?>" disabled>
+                                                <input type="text" class="form-control text-center" value="<?php echo $nro_abasto ?>" disabled>
                                                 <input type="text" value="<?php echo $nro_abasto ?>" id="nro_abasto" hidden>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Fecha del abasto</label>
-                                                <input type="date" class="form-control" id="fecha_abasto" value="<?php echo $fecha_abasto; ?>">
+                                                <input type="date" class="form-control text-center" id="fecha_abasto" value="<?php echo $fecha_abasto; ?>">
                                                 <small class="text-danger d-none" id="lbl_fecha_abasto">* Este campo es necesario rellenar</small>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Comprobante del abasto</label>
-                                                <input type="text" class="form-control" id="comprobante" value="<?php echo $comprobante; ?>">
+                                                <select id="comprobante" class="form-control">
+                                                    <option value="Factura">Factura</option>
+                                                    <option value="QR">QR</option>
+                                                </select>
                                                 <small class="text-danger d-none" id="lbl_comprobante">* Este campo es necesario rellenar</small>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Precio del abasto</label>
-                                                <input type="text" class="form-control" id="precio_abasto" value="<?php echo $precio_abasto; ?>" min="0" step="0.01">
+                                                <input type="text" class="form-control text-center" id="precio_abasto" value="<?php echo $precio_abasto; ?>" min="0" step="0.01">
                                                 <small class="text-danger d-none" id="lbl_precio_abasto">* Este campo es necesario rellenar</small>
+                                                <small class="text-danger d-none" id="lbl_precio_abasto_bajo">* El precio no puede ser negativo</small>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Stock actual</label>
-                                                <input type="text" id="stock_actual" value="<?= $stock  = $stock - $cantidad; ?>" class="form-control bg-warning" min="0">
-                                                <small class="text-danger d-none" id="lbl_stock">* Este campo es necesario rellenar</small>
+                                                <input type="text" id="stock_actual" value="<?= $stock -= $cantidad; ?>" class="form-control bg-warning text-center" min="0" disabled>
+                                                <small class="text-danger d-none" id="lbl_stock_bajo">* El stock no puede ser negativo</small>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Stock total</label>
-                                                <input type="text" id="stock_total" class="form-control" disabled>
+                                                <input type="text" id="stock_total" class="form-control text-center" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -423,6 +434,7 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                                 <label>Cantidad del abasto</label>
                                                 <input type="number" id="cantidad_abasto" value="<?php echo $cantidad; ?>" class="form-control text-center" min="0">
                                                 <small class="text-danger d-none" id="lbl_cantidad_abasto">* Este campo es necesario rellenar</small>
+                                                <small class="text-danger d-none" id="lbl_cantidad_abasto_bajo">* No puede quedar el abasto en negativo</small>
                                             </div>
                                             <script>
                                                 $('#cantidad_abasto').keyup(function() {
@@ -430,9 +442,27 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                                     var stock_abasto = $('#cantidad_abasto').val();
 
                                                     var total = parseInt(stock_actual) + parseInt(stock_abasto);
+                                                    if (total <= 0) {
+                                                        total = 0;
+                                                    }
                                                     $('#stock_total').val(total);
                                                 });
                                             </script>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Puesto</label>
+                                                <select id="id_puesto" class="form-control mr-2" required>
+                                                    <?php foreach ($puestos_datos as $puestos_dato) {
+                                                        $nombre_puesto_tabla = $puestos_dato['NombrePuesto'];
+                                                        $id_puesto_tabla = $puestos_dato['IdPuesto'];
+                                                    ?>
+                                                        <option value="<?php echo $id_puesto_tabla; ?>" <?php if ($nombre_puesto_tabla == $puesto) { ?> selected="selected" <?php } ?>>
+                                                            <?php echo $nombre_puesto_tabla; ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -453,6 +483,7 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
 
                                             var id_abasto = <?php echo $id_abasto; ?>;
                                             var id_producto = $('#id_producto').val();
+                                            var id_puesto = $('#id_puesto').val();
                                             var nro_abasto = $('#nro_abasto').val();
                                             var fecha_abasto = $('#fecha_abasto').val();
                                             var id_proveedor = $('#id_proveedor').val();
@@ -503,6 +534,13 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                             } else {
                                                 $('#lbl_precio_abasto').addClass('d-none');
                                             }
+                                            if (precio_abasto < 0) {
+                                                $('#precio_abasto').focus();
+                                                $('#lbl_precio_abasto_bajo').removeClass('d-none');
+                                                return;
+                                            } else {
+                                                $('#lbl_precio_abasto_bajo').addClass('d-none');
+                                            }
                                             if (cantidad_abasto == "") {
                                                 $('#cantidad_abasto').focus();
                                                 $('#lbl_cantidad_abasto').removeClass('d-none');
@@ -510,10 +548,22 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                             } else {
                                                 $('#lbl_cantidad_abasto').addClass('d-none');
                                             }
+                                            if (cantidad_abasto < 0) {
+                                                $('#cantidad_abasto').focus();
+                                                $('#lbl_cantidad_abasto_bajo').removeClass('d-none');
+                                                return;
+                                            } else {
+                                                $('#lbl_cantidad_abasto_bajo').addClass('d-none');
+                                            }
+                                            if (id_puesto == "") {
+                                                $('#id_puesto').focus();
+                                                alert("Debe llenar el puesto");
+                                            }
                                             var url = "../../App/Controllers/abasto/update.php";
                                             $.get(url, {
                                                 id_abasto: id_abasto,
                                                 id_producto: id_producto,
+                                                id_puesto: id_puesto,
                                                 nro_abasto: nro_abasto,
                                                 fecha_abasto: fecha_abasto,
                                                 id_proveedor: id_proveedor,

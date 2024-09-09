@@ -244,7 +244,7 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_pedido; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
                                                         <a href="delete.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
-                                                        <a href="factura.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Imprimir</a>
+                                                        <a href="nota_de_entrega.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Imprimir</a>
                                                     </div>
                                                 </td>
                                             </tr>

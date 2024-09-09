@@ -49,12 +49,16 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Categoría</label>
-                                                        <input type="text" value="<?php echo $categoria; ?>" class="form-control" disabled>
+                                                        <div class="form-group">
+                                                            <label>Categoría</label>
+                                                            <input type="text" value="<?php echo $categoria; ?>" class="form-control" disabled>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Nombre del producto</label>
-                                                        <input type="text" value="<?php echo $nombre; ?>" class="form-control" disabled>
+                                                        <div class="form-group">
+                                                            <label>Nombre del producto</label>
+                                                            <input type="text" value="<?php echo $nombre; ?>" class="form-control" disabled>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -62,6 +66,12 @@ include_once '../../App/Controllers/productos/cargar_producto.php';
                                                         <div class="form-group">
                                                             <label>Descripción del producto</label>
                                                             <textarea type="text" class="form-control" disabled><?php echo $descripcion; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Puesto</label>
+                                                            <input type="text" class="form-control" value="<?php echo $puesto_producto; ?>" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

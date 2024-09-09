@@ -75,6 +75,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                                     <th class="text-center">Precio compra</th>
                                                                     <th class="text-center">Precio venta</th>
                                                                     <th class="text-center">Fecha compra</th>
+                                                                    <th class="text-center">Puesto</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -85,7 +86,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                                     <tr>
                                                                         <td class="text-center"><?php echo $contador_de_pedidos; ?></td>
                                                                         <td>
-                                                                            <button type="button" class="btn btn-info" id="btn_seleccionar<?php echo $id_producto; ?>">
+                                                                            <button type="button" class="btn btn-info btn-sm" id="btn_seleccionar<?php echo $id_producto; ?>">
                                                                                 Seleccionado
                                                                             </button>
                                                                             <script>
@@ -119,6 +120,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                                         <td><?php echo $producto_dato['PrecioCompra']; ?></td>
                                                                         <td><?php echo $producto_dato['PrecioVenta']; ?></td>
                                                                         <td><?php echo $producto_dato['FechaIngreso']; ?></td>
+                                                                        <td><?php echo $producto_dato['NombrePuesto']; ?></td>
                                                                     </tr>
                                                                 <?php } ?>
                                                             </tbody>
@@ -429,6 +431,16 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                 <small class="d-none text-danger" id="lbl_fecha_pedido">* Debe ingresar la fecha del pedido</small>
                             </div>
                             <div class="form-group">
+                                <label>Puesto</label>
+                                <select id="id_puesto" class="form-control mr-2" required>
+                                    <?php foreach ($puestos_datos as $puestos_dato) : ?>
+                                        <option value="<?php echo $puestos_dato['IdPuesto']; ?>">
+                                            <?php echo $puestos_dato['NombrePuesto']; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Monto a cancelar</label>
                                 <input type="text" id="total_a_cancelar" class="form-control text-center bg-warning" value="<?php echo $precio_total; ?>" disabled>
                             </div>
@@ -465,6 +477,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                         var id_cliente = $('#id_cliente').val();
                                         var id_tipo_pago = $('#tipo_pago').val();
                                         var id_usuario = $('#id_usuario').val();
+                                        var id_puesto = $('#id_puesto').val();
                                         var fecha_pedido = $('#fecha_pedido').val();
                                         var total_a_cancelar = $('#total_a_cancelar').val();
                                         var descuento_cliente = $('#descuento_cliente').val();
@@ -536,6 +549,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                 id_cliente: id_cliente,
                                                 id_tipo_pago: id_tipo_pago,
                                                 id_usuario: id_usuario,
+                                                id_puesto: id_puesto,
                                                 fecha_pedido: fecha_pedido,
                                                 total_a_cancelar: total_a_cancelar,
                                                 estado_pago: estado_pago

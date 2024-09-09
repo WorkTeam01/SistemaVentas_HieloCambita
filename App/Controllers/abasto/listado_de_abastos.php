@@ -1,12 +1,13 @@
 <?php
 
 $sql_abasto = "SELECT aba.IdAbasto, aba.NroAbasto, aba.ComprobanteAbasto, aba.PrecioAbasto, aba.CantidadAbasto, aba.FechaAbasto, aba.Notas, p.*, pro.NombreProveedor,
-                pro.CelularProveedor, pro.TelefonoProveedor, pro.EmailProveedor, pro.DireccionProveedor, us.NombresUsuario, us.ApellidosUsuario, cat.NombreCategoria
+                pro.CelularProveedor, pro.TelefonoProveedor, pro.EmailProveedor, pro.DireccionProveedor, us.NombresUsuario, us.ApellidosUsuario, cat.NombreCategoria, pue.NombrePuesto
                 FROM abasto aba
                 INNER JOIN producto p ON aba.IdProducto = p.IdProducto
                 INNER JOIN proveedor pro ON aba.IdProveedor = pro.IdProveedor
                 INNER JOIN usuario us ON aba.IdUsuario = us.IdUsuario
-                INNER JOIN categoria cat ON p.IdCategoria = cat.IdCategoria";
+                INNER JOIN categoria cat ON p.IdCategoria = cat.IdCategoria
+                INNER JOIN puesto pue on aba.IdPuesto = pue.IdPuesto";
 
 $query_abasto = $pdo->query($sql_abasto);
 $query_abasto->execute();

@@ -5,7 +5,8 @@ include_once '../../Views/Layouts/sesion.php';
 include_once '../../Views/Layouts/header.php';
 
 include_once '../../App/Controllers/productos/listado_de_productos.php';
-include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
+include_once '../../App/Controllers/categorias/listado_de_categorias.php';
+include_once '../../App/Controllers/puesto/listado_de_puestos.php';
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -58,8 +59,8 @@ include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
                                                                 return $aux;
                                                             }
                                                             ?>
-                                                            <input type="text" value="P-<?php echo ceros($total_productos); ?>" class="form-control" disabled>
-                                                            <input type="text" name="codigo" value="P-<?php echo ceros($total_productos); ?>" class="form-control" hidden>
+                                                            <input type="text" value="P-<?php echo ceros($contador_de_producto); ?>" class="form-control" disabled>
+                                                            <input type="text" name="codigo" value="P-<?php echo ceros($contador_de_producto); ?>" class="form-control" hidden>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -81,9 +82,23 @@ include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-8">
-                                                        <label>Descripción del producto</label>
-                                                        <textarea type="text" rows="2" name="descripcion" class="form-control"></textarea>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Descripción del producto</label>
+                                                            <textarea type="text" rows="2" name="descripcion" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Puesto</label>
+                                                        <div class="d-flex">
+                                                            <select name="id_puesto" class="form-control mr-2" required>
+                                                                <?php foreach ($puestos_datos as $puestos_dato) : ?>
+                                                                    <option value="<?php echo $puestos_dato['IdPuesto']; ?>">
+                                                                        <?php echo $puestos_dato['NombrePuesto']; ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
@@ -111,7 +126,7 @@ include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
                                                             <input type="number" name="stock_maximo" class="form-control" min="0">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Precio de compra</label>
                                                             <input type="number" name="precio_compra" class="form-control" required min="0" step="0.01">
@@ -124,7 +139,6 @@ include_once '../../App/Controllers/Categorias/listado_de_categorias.php';
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">

@@ -3,6 +3,7 @@
 include_once '../../config.php';
 
 $id_producto = $_GET['id_producto'];
+$id_puesto = $_GET['id_puesto'];
 $nro_abasto = $_GET['nro_abasto'];
 $fecha_abasto = $_GET['fecha_abasto'];
 $id_proveedor = $_GET['id_proveedor'];
@@ -16,11 +17,12 @@ $id_abasto = $_GET['id_abasto'];
 $pdo->beginTransaction();
 
 $sentencia = $pdo->prepare("UPDATE abasto
-    SET IdProducto = :IdProducto, NroAbasto = :NroAbasto, FechaAbasto = :FechaAbasto, IdProveedor = :IdProveedor, ComprobanteAbasto = :ComprobanteAbasto,
+    SET IdProducto = :IdProducto, IdPuesto = :IdPuesto, NroAbasto = :NroAbasto, FechaAbasto = :FechaAbasto, IdProveedor = :IdProveedor, ComprobanteAbasto = :ComprobanteAbasto,
         IdUsuario = :IdUsuario, PrecioAbasto = :PrecioAbasto, CantidadAbasto = :CantidadAbasto
     WHERE IdAbasto = :IdAbasto");
 
 $sentencia->bindParam('IdProducto', $id_producto);
+$sentencia->bindParam('IdPuesto', $id_puesto);
 $sentencia->bindParam('NroAbasto', $nro_abasto);
 $sentencia->bindParam('FechaAbasto', $fecha_abasto);
 $sentencia->bindParam('IdProveedor', $id_proveedor);
@@ -32,6 +34,9 @@ $sentencia->bindParam('IdAbasto', $id_abasto);
 
 if ($sentencia->execute()) {
 
+    if ($stock_total <= 0)
+        $stock_total = $cantidad;
+
     // Actualizando stock desde la compra
     $sentencia = $pdo->prepare("UPDATE producto SET Stock = :Stock WHERE IdProducto = :IdProducto");
 
@@ -42,7 +47,7 @@ if ($sentencia->execute()) {
     $pdo->commit();
 
     session_start();
-    $_SESSION['mensaje'] = 'La compra se actualizó exitosamente';
+    $_SESSION['mensaje'] = 'El abasto se actualizó exitosamente';
     $_SESSION['icono'] = 'success';
 ?>
     <script>
@@ -54,7 +59,7 @@ if ($sentencia->execute()) {
     $pdo->rollBack();
 
     session_start();
-    $_SESSION['mensaje'] = 'Error al actualizar la compra';
+    $_SESSION['mensaje'] = 'Error al actualizar el abasto';
     $_SESSION['icono'] = 'error';
 ?>
     <script>

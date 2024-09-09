@@ -5,7 +5,7 @@ $sql_pedidos = "SELECT pe.*, c.IdCliente, c.CelularCliente, c.DescuentoCliente, 
             INNER JOIN cliente c on pe.IdCliente = c.IdCliente
             LEFT JOIN cnatural cn on c.IdCliente = cn.IdCliente
             LEFT JOIN cjuridico cj on c.IdCliente = cj.IdCliente
-            INNER JOIN puesto p on p.IdPuesto = p.IdPuesto
+            INNER JOIN puesto p on p.IdPuesto = pe.IdPuesto
             INNER JOIN tipo_pago tp on pe.IdTipoPago = tp.IdTipoPago";
 
 $query_pedidos = $pdo->query($sql_pedidos);

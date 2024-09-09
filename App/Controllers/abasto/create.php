@@ -3,6 +3,7 @@
 include_once '../../config.php';
 
 $id_producto = $_GET['id_producto'];
+$id_puesto = $_GET['id_puesto'];
 $nro_abasto = $_GET['nro_abasto'];
 $fecha_abasto = $_GET['fecha_abasto'];
 $id_proveedor = $_GET['id_proveedor'];
@@ -15,10 +16,11 @@ $stock_total = $_GET['stock_total'];
 $pdo->beginTransaction();
 
 $sentencia = $pdo->prepare("INSERT INTO abasto
-            (IdProducto, NroAbasto, FechaAbasto, IdProveedor, ComprobanteAbasto, IdUsuario, PrecioAbasto, CantidadAbasto) 
-    VALUES  (:IdProducto, :NroAbasto, :FechaAbasto, :IdProveedor, :ComprobanteAbasto, :IdUsuario, :PrecioAbasto,:CantidadAbasto)");
+            (IdProducto, IdPuesto, NroAbasto, FechaAbasto, IdProveedor, ComprobanteAbasto, IdUsuario, PrecioAbasto, CantidadAbasto) 
+    VALUES  (:IdProducto, :IdPuesto, :NroAbasto, :FechaAbasto, :IdProveedor, :ComprobanteAbasto, :IdUsuario, :PrecioAbasto,:CantidadAbasto)");
 
 $sentencia->bindParam('IdProducto', $id_producto);
+$sentencia->bindParam('IdPuesto', $id_puesto);
 $sentencia->bindParam('NroAbasto', $nro_abasto);
 $sentencia->bindParam('FechaAbasto', $fecha_abasto);
 $sentencia->bindParam('IdProveedor', $id_proveedor);
@@ -39,7 +41,7 @@ if ($sentencia->execute()) {
     $pdo->commit();
 
     session_start();
-    $_SESSION['mensaje'] = 'La compra se registró exitosamente';
+    $_SESSION['mensaje'] = 'El abasto se registró exitosamente';
     $_SESSION['icono'] = 'success';
 ?>
     <script>
@@ -51,7 +53,7 @@ if ($sentencia->execute()) {
     $pdo->rollBack();
 
     session_start();
-    $_SESSION['mensaje'] = 'Error al crear la compra';
+    $_SESSION['mensaje'] = 'Error al crear el abasto';
     $_SESSION['icono'] = 'error';
 ?>
     <script>

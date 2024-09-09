@@ -42,37 +42,43 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                     <div class="row" style="font-size: 14px;">
                                         <div class="col-md-9">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <input type="text" id="id_producto" class="form-control" hidden>
                                                         <label>Código</label>
                                                         <input type="text" value="<?php echo $codigo; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Categoría</label>
                                                         <input type="text" value="<?php echo $nombre_categoria; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Nombre del producto</label>
                                                         <input type="text" value="<?php echo $nombre_producto; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Puesto del producto</label>
+                                                        <input type="text" value="<?php echo $puesto; ?>" class="form-control" disabled>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     <div class="form-group">
                                                         <label>Descripción del producto</label>
                                                         <textarea type="text" rows="3" class="form-control" disabled><?php echo $descripcion_producto; ?></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Fecha de ingreso</label>
-                                                        <input type="text" class="form-control" value="<?php echo $fecha_ingreso; ?>" disabled>
+                                                        <input type="text" class="form-control text-center" value="<?php echo $fecha_ingreso; ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,31 +86,31 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Stock</label>
-                                                        <input type="text" class="form-control bg-warning" value="<?php echo $stock; ?>" disabled>
+                                                        <input type="text" class="form-control bg-warning text-center" value="<?php echo $stock; ?>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Stock mínimo</label>
-                                                        <input type="text" class="form-control" value="<?php echo $stock_minimo; ?>" disabled>
+                                                        <input type="text" class="form-control text-center" value="<?php echo $stock_minimo; ?>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Stock máximo</label>
-                                                        <input type="text" class="form-control" value="<?php echo $stock_maximo; ?>" disabled>
+                                                        <input type="text" class="form-control text-center" value="<?php echo $stock_maximo; ?>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Precio de compra</label>
-                                                        <input type="text" class="form-control" value="<?php echo $precio_compra ?>" disabled>
+                                                        <input type="text" class="form-control text-center" value="<?php echo $precio_compra ?>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Precio de venta</label>
-                                                        <input type="text" class="form-control" value="<?php echo $precio_venta; ?>" disabled>
+                                                        <input type="text" class="form-control text-center" value="<?php echo $precio_venta; ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,32 +181,38 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Número de compra</label>
-                                                <input type="text" class="form-control" value="<?php echo $nro_abasto ?>" disabled>
+                                                <label>Número del abasto</label>
+                                                <input type="text" class="form-control text-center" value="<?php echo $nro_abasto ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Fecha de la compra</label>
-                                                <input type="date" class="form-control" value="<?php echo $fecha_abasto ?>" disabled>
+                                                <label>Fecha del abasto</label>
+                                                <input type="date" class="form-control text-center" value="<?php echo $fecha_abasto ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Comprobante de la compra</label>
+                                                <label>Comprobante del abasto</label>
                                                 <input type="text" class="form-control" value="<?php echo $comprobante; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Precio de la compra</label>
-                                                <input type="text" class="form-control" value="<?php echo $precio_compra; ?>" disabled>
+                                                <label>Precio del abasto</label>
+                                                <input type="text" class="form-control text-center" value="<?php echo $precio_compra; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Cantidad de la compra</label>
+                                                <label>Cantidad del abasto</label>
                                                 <input type="number" class="form-control text-center" value="<?php echo $cantidad; ?>" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Puesto</label>
+                                                <input type="text" class="form-control" value="<?php echo $puesto; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
