@@ -1,9 +1,12 @@
 <?php
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Vendedor']);
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/clientes/listado_de_clientes.php';
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -33,7 +36,6 @@ include_once '../../App/Controllers/clientes/listado_de_clientes.php';
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
-
                             <!-- Filtros de clientes -->
                             <div class="dropright mb-3">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -45,6 +47,7 @@ include_once '../../App/Controllers/clientes/listado_de_clientes.php';
                                     <a class="dropdown-item" href="#" id="filtro-juridicos">Clientes Jurídicos</a>
                                 </div>
                             </div>
+                            <!-- Final de filtro -->
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-hover table-striped table-sm">
                                     <thead>

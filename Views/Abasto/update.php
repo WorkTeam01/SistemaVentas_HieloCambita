@@ -420,7 +420,11 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                             <div class="form-group">
                                                 <label>Stock actual</label>
                                                 <input type="text" id="stock_actual" value="<?= $stock -= $cantidad; ?>" class="form-control bg-warning text-center" min="0" disabled>
-                                                <small class="text-danger d-none" id="lbl_stock_bajo">* El stock no puede ser negativo</small>
+                                                <script>
+                                                    let stock_negativo = $('#stock_actual').val();
+                                                    if (stock_negativo < 0)
+                                                        $('#stock_actual').val(0);
+                                                </script>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -452,18 +456,26 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Puesto</label>
-                                                <select id="id_puesto" class="form-control mr-2" required>
-                                                    <?php foreach ($puestos_datos as $puestos_dato) {
-                                                        $nombre_puesto_tabla = $puestos_dato['NombrePuesto'];
-                                                        $id_puesto_tabla = $puestos_dato['IdPuesto'];
-                                                    ?>
-                                                        <option value="<?php echo $id_puesto_tabla; ?>" <?php if ($nombre_puesto_tabla == $puesto) { ?> selected="selected" <?php } ?>>
-                                                            <?php echo $nombre_puesto_tabla; ?>
-                                                        </option>
-                                                    <?php } ?>
-                                                </select>
+                                                <?php if ($rol_sesion == 'Comprador'): ?>
+                                                    <!-- Para usuarios normales, mostrar solo el puesto asignado -->
+                                                    <input type="text" class="form-control" value="<?php echo $puesto; ?>" disabled>
+                                                    <input type="hidden" id="id_puesto" value="<?php echo $id_puesto_actual; ?>">
+                                                <?php else: ?>
+                                                    <!-- Para administradores, mostrar un dropdown con todos los puestos -->
+                                                    <select id="id_puesto" class="form-control">
+                                                        <?php foreach ($puestos_datos as $puestos_dato) {
+                                                            $nombre_puesto_tabla = $puestos_dato['NombrePuesto'];
+                                                            $id_puesto_tabla = $puestos_dato['IdPuesto'];
+                                                        ?>
+                                                            <option value="<?php echo $id_puesto_tabla; ?>" <?php if ($id_puesto_tabla == $id_puesto_actual) { ?> selected="selected" <?php } ?>>
+                                                                <?php echo $nombre_puesto_tabla; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Usuario</label>
@@ -492,6 +504,7 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                             var precio_abasto = $('#precio_abasto').val();
                                             var cantidad_abasto = $('#cantidad_abasto').val();
                                             var stock_total = $('#stock_total').val();
+                                            var stock_actual = $('#stock_actual').val();
 
                                             if (id_producto == "") {
                                                 $('#id_producto').focus();

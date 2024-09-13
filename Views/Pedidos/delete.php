@@ -4,9 +4,12 @@ $nro_pedido_get = $_GET['nro_pedido'];
 
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarPermiso('Administrador');
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/pedidos/cargar_pedido.php';
 include_once '../../App/Controllers/clientes/cargar_cliente.php';
 include_once '../../App/Controllers/tipo_pago/cargar_tipo_pago.php';

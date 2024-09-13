@@ -13,5 +13,5 @@ $sentencia->bindParam('IdProducto', $id_producto);
 if ($sentencia->execute()) {
     echo "Se actualizó correctamente el stock";
 } else {
-    echo "Erro al actualizar el stock";
+    echo "Error al actualizar el stock";
 }

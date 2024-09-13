@@ -1,9 +1,12 @@
 <?php
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
 
 ?>
@@ -40,6 +43,7 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                         <tr>
                                             <th class="text-center">Nro</th>
                                             <th class="text-center">Nro de pedido</th>
+                                            <th class="text-center">Fecha de pedido</th>
                                             <th class="text-center">Productos</th>
                                             <th class="text-center">Cliente</th>
                                             <th class="text-center">Pago del pedido</th>
@@ -60,6 +64,7 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                             <tr>
                                                 <td class="text-center"><?php echo $contador; ?></td>
                                                 <td class="text-center"><?php echo $pedidos_dato['NroPedido']; ?></td>
+                                                <td class="text-center"><?php echo $pedidos_dato['FechaPedido']; ?></td>
                                                 <td class="text-center">
                                                     <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal-productos<?php echo $id_pedido; ?>">
@@ -231,11 +236,16 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php if ($pedidos_dato['EstadoPedido'] === 0) : ?>
-                                                        <button class="btn btn-danger btn-sm">Pendiente</button>
-                                                    <?php else : ?>
-                                                        <button class="btn btn-success btn-sm">Cancelado</button>
-                                                    <?php endif; ?>
+                                                    <?php
+                                                    $estadoActual = $pedidos_dato['EstadoPedido'];
+                                                    $textoBoton = $estadoActual === 0 ? 'Pendiente' : 'Cancelado';
+                                                    $claseBoton = $estadoActual === 0 ? 'btn-danger' : 'btn-success';
+                                                    ?>
+                                                    <button class="btn <?php echo $claseBoton; ?> btn-sm actualizar-estado"
+                                                        data-id-pedido="<?php echo $pedidos_dato['IdPedido']; ?>"
+                                                        data-estado-actual="<?php echo $estadoActual; ?>">
+                                                        <?php echo $textoBoton; ?>
+                                                    </button>
                                                 </td>
                                                 <td class="text-center"><?php echo "Bs. " . $pedidos_dato['MontoPago']; ?></td>
                                                 <td><?php echo $pedidos_dato['TipoPago']; ?></td>
@@ -243,7 +253,9 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_pedido; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                                        <a href="delete.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+                                                        <?php if ($rol_sesion == 'Administrador') : ?>
+                                                            <a href="delete.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+                                                        <?php endif; ?>
                                                         <a href="nota_de_entrega.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Imprimir</a>
                                                     </div>
                                                 </td>
@@ -324,4 +336,47 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
 
         }
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const botonesEstado = document.querySelectorAll('.actualizar-estado');
+
+        botonesEstado.forEach(boton => {
+            boton.addEventListener('click', function() {
+                const idPedido = this.getAttribute('data-id-pedido');
+                const estadoActual = parseInt(this.getAttribute('data-estado-actual'));
+
+                // Validar si el pedido ya está cancelado
+                if (estadoActual === 1) {
+                    alert('Este pedido ya está cancelado y no se puede modificar.');
+                    return;
+                }
+
+                const nuevoEstado = 1; // Siempre cambiamos a cancelado (1)
+
+                fetch('../../App/Controllers/pedidos/update_estado_pedido.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `idPedido=${idPedido}&nuevoEstado=${nuevoEstado}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.textContent = 'Cancelado';
+                            this.classList.remove('btn-danger');
+                            this.classList.add('btn-success');
+                            this.setAttribute('data-estado-actual', nuevoEstado);
+                            this.disabled = true; // Deshabilitar el botón después de cancelar
+                        } else {
+                            throw new Error(data.error || 'Error desconocido al actualizar el estado');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert(`Error al actualizar el estado: ${error.message}`);
+                    });
+            });
+        });
+    });
 </script>

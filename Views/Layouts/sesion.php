@@ -3,7 +3,7 @@ session_start();
 $Año = date('Y');
 if (isset($_SESSION['sesion_user'])) {
     $user_session = $_SESSION['sesion_user'];
-    $sql = "SELECT us.IdUsuario, us.Usuario, us.NombresUsuario, us.ApellidosUsuario, p.NombrePuesto, tip.RolUsuario FROM usuario us
+    $sql = "SELECT us.IdUsuario, us.Usuario, us.NombresUsuario, us.ApellidosUsuario, p.IdPuesto, p.NombrePuesto, tip.RolUsuario FROM usuario us
                 INNER JOIN rol_usuario tip on us.IdRolUsuario = tip.IdRolUsuario
                 INNER JOIN puesto p on us.IdPuesto = p.IdPuesto
                 WHERE Usuario = '$user_session' OR EmailUsuario = '$user_session'";
@@ -18,6 +18,7 @@ if (isset($_SESSION['sesion_user'])) {
         $nombres_sesion = $usuario['NombresUsuario'];
         $apellidos_sesion = $usuario['ApellidosUsuario'];
         $puesto_usuario_sesion = $usuario['NombrePuesto'];
+        $id_puesto_sesion = $usuario['IdPuesto'];
         $rol_sesion = $usuario['RolUsuario'];
     }
 } else {

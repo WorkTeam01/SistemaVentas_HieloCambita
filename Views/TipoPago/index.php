@@ -1,9 +1,12 @@
 <?php
-include_once '../../App/config.php';
-include_once '../../Views/Layouts/sesion.php';
+require_once '../../App/config.php';
+require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -14,9 +17,15 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de tipos de pagos
-                        <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
-                            <i class="fas fa-plus"></i> Crear nueva
-                        </button>
+                        <?php if ($rol_sesion != 'Administrador') : ?>
+                            <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create" disabled>
+                                <i class="fas fa-plus"></i> Crear nueva
+                            </button>
+                        <?php else : ?>
+                            <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
+                                <i class="fas fa-plus"></i> Crear nueva
+                            </button>
+                        <?php endif; ?>
                     </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -57,9 +66,15 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                 <td><?php echo $tipo_pago; ?></td>
                                                 <td>
                                                     <div class="text-center">
-                                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_tipo_pago; ?>">
-                                                            <i class="fas fa-pencil-alt"></i> Editar
-                                                        </button>
+                                                        <?php if ($rol_sesion != 'Administrador') : ?>
+                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_tipo_pago; ?>" disabled>
+                                                                <i class="fas fa-pencil-alt"></i> Editar
+                                                            </button>
+                                                        <?php else : ?>
+                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_tipo_pago; ?>">
+                                                                <i class="fas fa-pencil-alt"></i> Editar
+                                                            </button>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -191,7 +206,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
 </script>
 
 <?php
-foreach ($tipo_pagos_datos as $tipo_pagos_dato) {
+foreach ($tipo_pagos_datos as $tipo_pagos_dato) :
     $id_tipo_pago = $tipo_pagos_dato['IdTipoPago'];
     $tipo_pago = $tipo_pagos_dato['TipoPago']; ?>
     <!-- Modal update categorias -->
@@ -242,4 +257,4 @@ foreach ($tipo_pagos_datos as $tipo_pagos_dato) {
         });
     </script>
     <div id="respuesta_update<?php echo $id_tipo_pago; ?>"></div>
-<?php } ?>
+<?php endforeach; ?>

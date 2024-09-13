@@ -1,9 +1,12 @@
 <?php
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Comprador']);
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
 include_once '../../App/Controllers/productos/listado_de_productos.php';
 include_once '../../App/Controllers/abasto/listado_de_abastos.php';
@@ -402,6 +405,19 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                                 <small class="text-danger d-none" id="lbl_fecha_abasto">* Debe agregar la fecha del abasto</small>
                                             </div>
                                         </div>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                // Obtener la fecha actual en el formato de la laptop (AAAA-MM-DD)
+                                                let today = new Date();
+                                                let day = String(today.getDate()).padStart(2, '0');
+                                                let month = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+                                                let year = today.getFullYear();
+                                                // Formatear la fecha en formato YYYY-MM-DD
+                                                let formattedDate = year + '-' + month + '-' + day;
+                                                // Asignar la fecha actual al input
+                                                document.getElementById("fecha_abasto").value = formattedDate;
+                                            });
+                                        </script>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Comprobante del abasto</label>
@@ -456,7 +472,7 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                                 <label>Puesto</label>
                                                 <select id="id_puesto" class="form-control mr-2" required>
                                                     <?php foreach ($puestos_datos as $puestos_dato) : ?>
-                                                        <option value="<?php echo $puestos_dato['IdPuesto']; ?>">
+                                                        <option value="<?php echo $puestos_dato['IdPuesto']; ?>" <?php echo ($rol_sesion != 'Administrador') ? 'selected disabled' : ''; ?>>
                                                             <?php echo $puestos_dato['NombrePuesto']; ?>
                                                         </option>
                                                     <?php endforeach; ?>

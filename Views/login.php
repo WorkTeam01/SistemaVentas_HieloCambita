@@ -51,17 +51,17 @@ $base_url = "http://localhost/sistemaventashielocambita/";
         }
         ?>
         <div class="login-logo">
-            <img src="<?php echo $base_url; ?>Public/Img/AdminLTELogo.png" class="img-fluid img-circle" width="150" height="150" alt="Img del login">
+            <img src="<?php echo $base_url; ?>Public/Img/logo_hielo_cambita_2.jpeg" class="img-circle" width="150" height="150" alt="Img del login">
         </div>
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1"><b>SISTEMA DE</b> VENTAS</a>
+                <a href="#" class="h1"><b>HIELO CAMBITA</b></a>
             </div>
             <div class="card-body">
-                <h5 class="login-box-msg">Login</h5>
+                <h5 class="login-box-msg">Formulario de inicio de sesión</h5>
 
                 <form action="<?php echo $base_url; ?>App/Controllers/login/ingreso.php" method="post">
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 mt-3">
                         <input type="text" name="user" class="form-control" placeholder="Ingrese su usuario o su correo" maxlength="50">
                         <div class="input-group-append">
                             <div class="input-group-text">

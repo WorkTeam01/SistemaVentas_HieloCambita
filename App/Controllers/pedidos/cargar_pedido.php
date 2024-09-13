@@ -2,13 +2,14 @@
 
 $id_pedido_get = $_GET['id'];
 
-$sql_pedidos = "SELECT pe.*, c.IdCliente, c.CelularCliente, c.DescuentoCliente, cn.NombreCliente, cj.RazonSocial, p.IdPuesto, p.NombrePuesto, tp.IdTipoPago, tp.TipoPago
+$sql_pedidos = "SELECT pe.*, c.IdCliente, c.CelularCliente, c.DescuentoCliente, cn.NombreCliente, cj.RazonSocial, p.IdPuesto, p.NombrePuesto, tp.IdTipoPago, tp.TipoPago, us.IdUsuario, us.Usuario, us.NombresUsuario, us.ApellidosUsuario
             FROM pedido pe
             INNER JOIN cliente c on pe.IdCliente = c.IdCliente
             LEFT JOIN cnatural cn on c.IdCliente = cn.IdCliente
             LEFT JOIN cjuridico cj on c.IdCliente = cj.IdCliente
             INNER JOIN puesto p on p.IdPuesto = pe.IdPuesto
             INNER JOIN tipo_pago tp on pe.IdTipoPago = tp.IdTipoPago
+            INNER JOIN usuario us on pe.IdUsuario = us.IdUsuario
             WHERE pe.IdPedido = '$id_pedido_get'";
 
 $query_pedidos = $pdo->query($sql_pedidos);
@@ -27,4 +28,8 @@ foreach ($pedidos_datos as $pedidos_dato) {
     $fecha_pedido = $pedidos_dato['FechaPedido'];
     $monto_pago = $pedidos_dato['MontoPago'];
     $estado_pedido = $pedidos_dato['EstadoPedido'];
+    $id_usuario_pedido = ['IdUsuario'];
+    $usuario_pedido = $pedidos_dato['Usuario'];
+    $nombres_usuario_pedido = $pedidos_dato['NombresUsuario'];
+    $apellidos_usuario_pedido = $pedidos_dato['ApellidosUsuario'];
 }

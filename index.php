@@ -35,166 +35,185 @@ include_once 'Views/Layouts/mensajes.php';
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de usuarios -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3><?php echo $total_user; ?></h3>
-                            <p>Usuarios registrados</p>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Usuarios/create.php">
-                            <div class="icon">
-                                <i class="fas fa-user-plus"></i>
+                <?php if ($rol_sesion == 'Administrador') : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de usuarios -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3><?php echo $total_user; ?></h3>
+                                <p>Usuarios registrados</p>
                             </div>
-                        </a>
-                        <a href="<?php echo $URL; ?>/Views/Usuarios" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de roles -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3><?php echo $total_roles; ?></h3>
-                            <p>Roles registrados</p>
+                            <a href="<?php echo $URL; ?>/Views/Usuarios/create.php">
+                                <div class="icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                            </a>
+                            <a href="<?php echo $URL; ?>/Views/Usuarios" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
                         </div>
-                        <a href="<?php echo $URL; ?>/Views/Roles/create.php">
-                            <div class="icon">
-                                <i class="fas fa-id-card-alt"></i>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de roles -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3><?php echo $total_roles; ?></h3>
+                                <p>Roles registrados</p>
                             </div>
-                        </a>
-                        <a href="<?php echo $URL; ?>/Views/Roles" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                            <a href="<?php echo $URL; ?>/Views/Roles/create.php">
+                                <div class="icon">
+                                    <i class="fas fa-id-card-alt"></i>
+                                </div>
+                            </a>
+                            <a href="<?php echo $URL; ?>/Views/Roles" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de categorias -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3><?php echo $total_categorias; ?></h3>
-                            <p>Categorias registradas</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-tag"></i>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Categorias" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de productos -->
-                    <div class="small-box bg-primary">
-                        <div class="inner">
-                            <h3><?php echo $total_productos; ?></h3>
-                            <p>Productos registrados</p>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Productos/create.php">
-                            <div class="icon">
-                                <i class="fas fa-boxes"></i>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de puestos -->
+                        <div class="small-box bg-purple">
+                            <div class="inner">
+                                <h3><?php echo $total_puestos; ?></h3>
+                                <p>Puestos registrados</p>
                             </div>
-                        </a>
-                        <a href="<?php echo $URL; ?>/Views/Productos" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de proveedores -->
-                    <div class="small-box bg-secondary">
-                        <div class="inner">
-                            <h3><?php echo $total_proveedores; ?></h3>
-                            <p>Proveedores registrados</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-truck-moving"></i>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Proveedores" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de abastos -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3><?php echo $total_abasto; ?></h3>
-                            <p>Abastos registrados</p>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Abasto/create.php">
                             <div class="icon">
-                                <i class="fas fa-shopping-bag"></i>
+                                <i class="fas fa-warehouse"></i>
                             </div>
-                        </a>
-                        <a href="<?php echo $URL; ?>/Views/Abasto" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                            <a href="<?php echo $URL; ?>/Views/Puesto" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de puestos -->
-                    <div class="small-box bg-purple">
-                        <div class="inner">
-                            <h3><?php echo $total_puestos; ?></h3>
-                            <p>Puestos registrados</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-warehouse"></i>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Puesto" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de tipos de pagos -->
-                    <div class="small-box bg-light">
-                        <div class="inner">
-                            <h3><?php echo $total_tipo_pagos; ?></h3>
-                            <p>Tipos de pagos registrados</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-money-check-alt"></i>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/TipoPago" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de clientes -->
-                    <div class="small-box bg-indigo">
-                        <div class="inner">
-                            <h3><?php echo $total_clientes; ?></h3>
-                            <p>Clientes registrados</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-user-alt"></i>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Clientes" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- Tarjeta de pedidos -->
-                    <div class="small-box bg-olive">
-                        <div class="inner">
-                            <h3><?php echo $total_pedidos; ?></h3>
-                            <p>Pedidos registrados</p>
-                        </div>
-                        <a href="<?php echo $URL; ?>/Views/Pedidos/create.php">
+                <?php endif; ?>
+
+                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor' || $rol_sesion == 'Comprador') : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de categorias -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3><?php echo $total_categorias; ?></h3>
+                                <p>Categorias registradas</p>
+                            </div>
                             <div class="icon">
-                                <i class="fas fa-shopping-cart"></i>
+                                <i class="fas fa-tag"></i>
                             </div>
-                        </a>
-                        <a href="<?php echo $URL; ?>/Views/Pedidos" class="small-box-footer">
-                            Mas detalles <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                            <a href="<?php echo $URL; ?>/Views/Categorias" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de productos -->
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                <h3><?php echo $total_productos; ?></h3>
+                                <p>Productos registrados</p>
+                            </div>
+                            <?php if ($rol_sesion == 'Administrador') : ?>
+                                <a href="<?php echo $URL; ?>/Views/Productos/create.php">
+                                    <div class="icon">
+                                        <i class="fas fa-boxes"></i>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                            <a href="<?php echo $URL; ?>/Views/Productos" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($rol_sesion == 'Administrador') : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de proveedores -->
+                        <div class="small-box bg-secondary">
+                            <div class="inner">
+                                <h3><?php echo $total_proveedores; ?></h3>
+                                <p>Proveedores registrados</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-truck-moving"></i>
+                            </div>
+                            <a href="<?php echo $URL; ?>/Views/Proveedores" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Comprador') : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de abastos -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3><?php echo $total_abasto; ?></h3>
+                                <p>Abastos registrados</p>
+                            </div>
+                            <a href="<?php echo $URL; ?>/Views/Abasto/create.php">
+                                <div class="icon">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                            </a>
+                            <a href="<?php echo $URL; ?>/Views/Abasto" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Comprador' || $rol_sesion == 'Vendedor') : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de tipos de pagos -->
+                        <div class="small-box bg-light">
+                            <div class="inner">
+                                <h3><?php echo $total_tipo_pagos; ?></h3>
+                                <p>Tipos de pagos registrados</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-money-check-alt"></i>
+                            </div>
+                            <a href="<?php echo $URL; ?>/Views/TipoPago" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor') : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de clientes -->
+                        <div class="small-box bg-indigo">
+                            <div class="inner">
+                                <h3><?php echo $total_clientes; ?></h3>
+                                <p>Clientes registrados</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-user-alt"></i>
+                            </div>
+                            <a href="<?php echo $URL; ?>/Views/Clientes" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de pedidos -->
+                        <div class="small-box bg-olive">
+                            <div class="inner">
+                                <h3><?php echo $total_pedidos; ?></h3>
+                                <p>Pedidos registrados</p>
+                            </div>
+                            <a href="<?php echo $URL; ?>/Views/Pedidos/create.php">
+                                <div class="icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </a>
+                            <a href="<?php echo $URL; ?>/Views/Pedidos" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

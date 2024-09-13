@@ -1,9 +1,12 @@
 <?php
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
 include_once '../../App/Controllers/productos/listado_de_productos.php';
 include_once '../../App/Controllers/clientes/listado_de_clientes.php';
@@ -212,42 +215,49 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                 $total_precio_unitario = 0;
                                                 $precio_total = 0;
 
-                                                $sql_detalle_pedido = "SELECT dtp.*, p.IdProducto, p.NombreProducto, p.DescripcionProducto, p.PrecioVenta, p.Stock FROM detalle_pedido dtp
-                                                INNER JOIN producto p on dtp.IdProducto = p.IdProducto
-                                                WHERE NroPedido = '$contador_de_pedidos' ORDER BY IdDetallePedido ASC";
+                                                // Modificación en la consulta SQL para incluir el puesto
+                                                $sql_detalle_pedido = "SELECT dtp.*, p.IdProducto, p.NombreProducto, p.DescripcionProducto, p.PrecioVenta, p.Stock, pue.IdPuesto, pue.NombrePuesto
+                                                                    FROM detalle_pedido dtp
+                                                                    INNER JOIN producto p ON dtp.IdProducto = p.IdProducto
+                                                                    INNER JOIN puesto pue ON p.IdPuesto = pue.IdPuesto
+                                                                    WHERE NroPedido = :nro_pedido 
+                                                                    ORDER BY IdDetallePedido ASC";
+
                                                 $query_detalle_pedido = $pdo->prepare($sql_detalle_pedido);
+                                                $query_detalle_pedido->bindParam(':nro_pedido', $contador_de_pedidos, PDO::PARAM_INT);
                                                 $query_detalle_pedido->execute();
                                                 $detalle_pedido_datos = $query_detalle_pedido->fetchAll(PDO::FETCH_ASSOC);
 
                                                 foreach ($detalle_pedido_datos as $detalle_pedido_dato) {
                                                     $id_detalle_pedido = $detalle_pedido_dato['IdDetallePedido'];
-                                                    $contador_de_detalles_pedido += 1;
-                                                    $cantidad_total = $cantidad_total + $detalle_pedido_dato['Cantidad'];
-                                                    $total_precio_unitario = $total_precio_unitario + floatval($detalle_pedido_dato['PrecioVenta']);
+                                                    $contador_de_detalles_pedido++;
+                                                    $cantidad_total += $detalle_pedido_dato['Cantidad'];
+                                                    $total_precio_unitario += floatval($detalle_pedido_dato['PrecioVenta']);
                                                 ?>
                                                     <tr>
                                                         <td class="text-center">
                                                             <?php echo $contador_de_detalles_pedido; ?>
-                                                            <input type="text" value="<?php echo $detalle_pedido_dato['IdProducto']; ?>" id="id_producto<?php echo $contador_de_detalles_pedido; ?>" hidden>
+                                                            <input type="hidden" value="<?php echo $detalle_pedido_dato['IdProducto']; ?>" id="id_producto<?php echo $contador_de_detalles_pedido; ?>">
                                                         </td>
-                                                        <td><?php echo $detalle_pedido_dato['NombreProducto']; ?></td>
-                                                        <td><?php echo $detalle_pedido_dato['DescripcionProducto']; ?></td>
+                                                        <td><?php echo htmlspecialchars($detalle_pedido_dato['NombreProducto']); ?></td>
+                                                        <td><?php echo htmlspecialchars($detalle_pedido_dato['DescripcionProducto']); ?></td>
                                                         <td class="text-center">
                                                             <span id="cantidad_detalle_pedido<?php echo $contador_de_detalles_pedido; ?>"><?php echo $detalle_pedido_dato['Cantidad']; ?></span>
-                                                            <input type="text" class="form-control" value="<?php echo $detalle_pedido_dato['Stock']; ?>" id="stock_de_inventario<?php echo $contador_de_detalles_pedido; ?>" hidden>
+                                                            <input type="hidden" class="form-control" value="<?php echo $detalle_pedido_dato['Stock']; ?>" id="stock_de_inventario<?php echo $contador_de_detalles_pedido; ?>">
                                                         </td>
-                                                        <td class="text-center"><?php echo $detalle_pedido_dato['Precio']; ?></td>
+                                                        <td class="text-center"><?php echo number_format($detalle_pedido_dato['Precio'], 2); ?></td>
                                                         <td class="text-center">
                                                             <?php
                                                             $cantidad = floatval($detalle_pedido_dato['Cantidad']);
                                                             $precio_venta = floatval($detalle_pedido_dato['Precio']);
-                                                            echo $subtotal = $cantidad * $precio_venta;
-                                                            $precio_total = $precio_total + $subtotal;
+                                                            $subtotal = $cantidad * $precio_venta;
+                                                            echo number_format($subtotal, 2);
+                                                            $precio_total += $subtotal;
                                                             ?>
                                                         </td>
                                                         <td class="text-center">
                                                             <form action="../../App/Controllers/pedidos/borrar_detalle_pedido.php" method="post">
-                                                                <input type="text" name="id_detalle_pedido" value="<?php echo $id_detalle_pedido; ?>" hidden>
+                                                                <input type="hidden" name="id_detalle_pedido" value="<?php echo $id_detalle_pedido; ?>">
                                                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
                                                             </form>
                                                         </td>
@@ -256,8 +266,8 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                 <tr>
                                                     <th class="bg-secondary text-right" colspan="3">Total</th>
                                                     <th class="text-center"><?php echo $cantidad_total; ?></th>
-                                                    <th class="text-center"><?php echo $total_precio_unitario; ?></th>
-                                                    <th class="text-center bg-warning"><?php echo $precio_total; ?></th>
+                                                    <th class="text-center"><?php echo number_format($total_precio_unitario, 2); ?></th>
+                                                    <th class="text-center bg-warning"><?php echo number_format($precio_total, 2); ?></th>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -429,16 +439,24 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                 <label>Fecha del pedido</label>
                                 <input type="date" id="fecha_pedido" class="form-control text-center">
                                 <small class="d-none text-danger" id="lbl_fecha_pedido">* Debe ingresar la fecha del pedido</small>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Obtener la fecha actual en el formato de la laptop (AAAA-MM-DD)
+                                        let today = new Date();
+                                        let day = String(today.getDate()).padStart(2, '0');
+                                        let month = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+                                        let year = today.getFullYear();
+                                        // Formatear la fecha en formato YYYY-MM-DD
+                                        let formattedDate = year + '-' + month + '-' + day;
+                                        // Asignar la fecha actual al input
+                                        document.getElementById("fecha_pedido").value = formattedDate;
+                                    });
+                                </script>
                             </div>
                             <div class="form-group">
                                 <label>Puesto</label>
-                                <select id="id_puesto" class="form-control mr-2" required>
-                                    <?php foreach ($puestos_datos as $puestos_dato) : ?>
-                                        <option value="<?php echo $puestos_dato['IdPuesto']; ?>">
-                                            <?php echo $puestos_dato['NombrePuesto']; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" id="id_puesto" class="form-control" value="<?= $id_puesto_sesion; ?>" hidden>
+                                <input type="text" id="nombre_puesto" class="form-control" value="<?php echo $puesto_usuario_sesion; ?>" disabled>
                             </div>
                             <div class="form-group">
                                 <label>Monto a cancelar</label>

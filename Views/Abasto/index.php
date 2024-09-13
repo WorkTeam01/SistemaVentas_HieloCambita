@@ -1,6 +1,10 @@
 <?php
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Comprador']);
 
 include_once '../../Views/Layouts/header.php';
 
@@ -34,6 +38,16 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
+                            <!-- Filtros de puesto -->
+                            <div class="dropright mb-3">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Filtro de puestos
+                                </button>
+                                <div class="dropdown-menu" id="puestoDropdown">
+                                    <!-- Opciones generadas dinámicamente aquí -->
+                                </div>
+                            </div>
+                            <!-- Final de filtro -->
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-hover table-striped table-sm">
                                     <thead>
@@ -100,7 +114,7 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
 </div>
 
 <!-- Modales -->
-<?php foreach ($abasto_datos as $abasto_dato) {
+<?php foreach ($abasto_datos as $abasto_dato) :
     $id_abasto = $abasto_dato['IdAbasto']; ?>
     <!-- Modal datos de productos -->
     <div class="modal fade" id="modal-producto<?php echo $id_abasto; ?>" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel<?php echo $id_abasto; ?>" aria-hidden="true">
@@ -266,68 +280,104 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
             </div>
         </div>
     </div>
-<?php } ?>
+<?php endforeach; ?>
 
 <?php include_once '../../Views/Layouts/mensajes.php'; ?>
 <?php include_once '../../Views/Layouts/footer.php'; ?>
 
 <!-- Page specific script -->
 <script>
-    $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        buttons: [{
-                extend: 'collection',
-                text: 'Reportes',
-                orientation: 'landscape',
-                buttons: [{
-                    text: 'Copiar',
-                    extend: 'copy'
-                }, {
-                    extend: 'pdf',
-                }, {
-                    extend: 'csv',
-                }, {
-                    extend: 'excel',
-                }, {
-                    text: 'Imprimir',
-                    extend: 'print'
-                }]
-            },
-            {
-                extend: 'colvis',
-                text: 'Visualización de columnas'
+    $(document).ready(function() {
+        var table = $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            buttons: [{
+                    extend: 'collection',
+                    text: 'Reportes',
+                    orientation: 'landscape',
+                    buttons: [{
+                        text: 'Copiar',
+                        extend: 'copy'
+                    }, {
+                        extend: 'pdf',
+                    }, {
+                        extend: 'csv',
+                    }, {
+                        extend: 'excel',
+                    }, {
+                        text: 'Imprimir',
+                        extend: 'print'
+                    }]
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Visualización de columnas'
+                }
+            ],
+            "pageLength": 5,
+            lengthMenu: [
+                [3, 5, 10, 25, 50],
+                [3, 5, 10, 25, 50]
+            ],
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ Abastos",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 Abastos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ Abastos)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
             }
-        ],
-        "pageLength": 5,
-        lengthMenu: [
-            [3, 5, 10, 25, 50],
-            [3, 5, 10, 25, 50]
-        ],
-        "language": {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ Abasto",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 Abasto",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ Abasto)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
+        });
 
-        }
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        var puestosDatos = <?php echo json_encode($puestos_datos); ?>;
+
+        // Ordenar los datos por IdPuesto en orden descendente
+        puestosDatos.sort(function(a, b) {
+            return a.IdPuesto - b.IdPuesto;
+        });
+
+        var dropdownMenu = $('#puestoDropdown');
+
+        // Limpiar el menú desplegable antes de agregar nuevos elementos
+        dropdownMenu.empty();
+
+        // Agregar opción de "Todos"
+        dropdownMenu.append('<a class="dropdown-item" href="#" id="filtro-todos">Todos</a>');
+
+        // Agregar opciones de puestos ordenadas
+        puestosDatos.forEach(function(puesto) {
+            dropdownMenu.append('<a class="dropdown-item" href="#" data-id="' + puesto.IdPuesto + '">' + puesto.NombrePuesto + '</a>');
+        });
+
+        // Configurar filtros
+        $('.dropdown-menu a').on('click', function() {
+            var puestoId = $(this).data('id');
+            var filtro = $(this).text();
+            if (puestoId === undefined) {
+                // Mostrar todos
+                table.column(5).search('').draw();
+            } else {
+                // Filtrar por puesto ID
+                table.column(5).search(filtro).draw();
+            }
+        });
+
+        table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
 </script>

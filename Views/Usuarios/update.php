@@ -1,9 +1,12 @@
 <?php
-include_once '../../App/config.php';
+require_once '../../App/config.php';
+require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
-include_once '../../Views/Layouts/sesion.php';
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarPermiso('Administrador');
+
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/usuarios/show_usuario.php';
 include_once '../../App/Controllers/roles/listado_de_roles.php';
 include_once '../../App/Controllers/puesto/listado_de_puestos.php';

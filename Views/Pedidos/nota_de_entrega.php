@@ -4,8 +4,12 @@
 require_once('../../App/TCPDF-main/tcpdf.php');
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
-include_once '../../App/Controllers/pedidos/literal.php';
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarRoles(['Administrador', 'Vendedor']);
+
+include_once('../../App/Controllers/pedidos/literal.php');
 
 if (session_status() == PHP_SESSION_NONE)
     session_start();
@@ -123,7 +127,7 @@ $html = /*html*/ '
 <table border="0" style="font-size: 10px">
     <tr>
         <td style="text-align: center; width: 180px">
-        <img src="../../Public/Img/user_default.jpg" alt="Imagen" width="70px"> <br><br>
+        <img src="../../Public/Img/logo_hielo_cambita.jpeg" alt="Imagen" width="100"> <br><br>
             <b>SISTEMA DE VENTAS</b> <br>
             Tecer anillo interno, Av. Bush <br>
             3113646 - 78569885 <br>
@@ -234,7 +238,7 @@ $html .= /* html*/ '
 $pdf->writeHTML($html, true, false, true, false, '');
 
 // Draw rounded rectangle
-$pdf->RoundedRect(15, 80, 186, 15, 3.50, '1111', 'D');
+$pdf->RoundedRect(15, 86, 186, 15, 3.50, '1111', 'D');
 
 $style = array(
     'border' => 0,

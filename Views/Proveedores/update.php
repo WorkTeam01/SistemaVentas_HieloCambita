@@ -1,9 +1,12 @@
 <?php
-include_once '../../App/config.php';
-include_once '../../Views/Layouts/sesion.php';
+require_once '../../App/config.php';
+require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarPermiso('Administrador');
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/proveedores/update_proveedores.php';
 
 ?>

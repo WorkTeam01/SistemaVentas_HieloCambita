@@ -19,6 +19,8 @@ if ($sentencia->execute()) {
 
     // Actualizar el stock desde la compra
     $stock = $stock_actual - $cantidad_compra;
+    if ($stock < 0)
+        $stock = 0;
     $sentencia = $pdo->prepare("UPDATE producto SET Stock = :Stock WHERE IdProducto = :IdProducto");
     $sentencia->bindParam('Stock', $stock);
     $sentencia->bindParam('IdProducto', $id_producto_get);
