@@ -38,8 +38,16 @@ if ($rol_sesion != 'Administrador') {
 $query_abasto->execute();
 
 // Obtener los datos de abastos
-$contador_de_abasto = $query_abasto->rowCount() + 1;
 $total_abasto = $query_abasto->rowCount();
+
+// Obtener el último número de abasto
+$sql_ultimo_abasto = "SELECT MAX(NroAbasto) as ultimo_abasto FROM abasto";
+$query_ultimo_abasto = $pdo->prepare($sql_ultimo_abasto);
+$query_ultimo_abasto->execute();
+$resultado_ultimo_abasto = $query_ultimo_abasto->fetch(PDO::FETCH_ASSOC);
+
+// Incrementar el contador para el nuevo abasto
+$contador_de_abastos = $resultado_ultimo_abasto['ultimo_abasto'] + 1;
 $abasto_datos = $query_abasto->fetchAll(PDO::FETCH_ASSOC);
 
 // En tu controlador PHP

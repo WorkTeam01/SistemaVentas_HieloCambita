@@ -37,7 +37,7 @@ include_once '../../App/Controllers/categorias/listado_de_categorias.php';
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Categorías registradas</h3>
@@ -67,11 +67,11 @@ include_once '../../App/Controllers/categorias/listado_de_categorias.php';
                                                 <td class="text-center">
                                                     <div>
                                                         <?php if ($rol_sesion != 'Administrador') : ?>
-                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-update<?php echo $id_categoria; ?>" disabled>
+                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_categoria; ?>" disabled>
                                                                 <i class="fas fa-pencil-alt"></i> Editar
                                                             </button>
                                                         <?php else : ?>
-                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-update<?php echo $id_categoria; ?>">
+                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_categoria; ?>">
                                                                 <i class="fas fa-pencil-alt"></i> Editar
                                                             </button>
                                                         <?php endif; ?>

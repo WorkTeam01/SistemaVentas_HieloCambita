@@ -394,8 +394,8 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Número de abasto</label>
-                                                <input type="text" class="form-control" value="<?php echo $contador_de_abasto ?>" disabled>
-                                                <input type="text" value="<?php echo $contador_de_abasto ?>" id="nro_abasto" hidden>
+                                                <input type="text" class="form-control" value="<?php echo $contador_de_abastos ?>" disabled>
+                                                <input type="text" value="<?php echo $contador_de_abastos ?>" id="nro_abasto" hidden>
                                             </div>
                                         </div>
                                         <div class="col-md-12">

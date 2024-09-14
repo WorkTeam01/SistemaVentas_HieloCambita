@@ -43,33 +43,49 @@ include_once '../../App/Controllers/usuarios/show_usuario.php';
                                     <form action="<?php echo $URL; ?>/App/Controllers/usuarios/delete_usuario.php" method="post">
                                         <input type="text" name="id_usuario" value="<?php echo $id_usuario_get; ?>" class="form-control" hidden>
                                         <div class="row">
-                                            <div class="col-md 4">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="">Usuario</label>
                                                     <input type="text" value="<?php echo $usuario; ?>" class="form-control" disabled>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Nombres</label>
                                                     <input type="text" value="<?php echo $nombres_usuario; ?>" class="form-control" disabled>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Apellidos</label>
                                                     <input type="text" value="<?php echo $apellidos_usuario; ?>" class="form-control" disabled>
                                                 </div>
                                             </div>
-                                            <div class="col-md 4">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Email</label>
                                                     <input type="email" value="<?php echo $email_usuario; ?>" class="form-control" disabled>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Rol</label>
                                                     <input type="text" value="<?php echo $rol; ?>" class="form-control" disabled>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Puesto</label>
                                                     <input type="text" value="<?php echo $puesto; ?>" class="form-control" disabled>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Estado</label>
                                                     <input type="text" value="<?php echo $estado_usuario; ?>" class="form-control" disabled>
@@ -78,7 +94,7 @@ include_once '../../App/Controllers/usuarios/show_usuario.php';
                                         </div>
                                         <hr>
                                         <div class="form-group">
-                                            <a href="<?php echo $URL; ?>/Views/Usuarios" class="btn btn-secondary mr-1">Volver</a>
+                                            <a href="<?php echo $URL; ?>/Views/Usuarios" class="btn btn-secondary mr-1">Cancelar</a>
                                             <button type="submit" class="btn btn-danger">Eliminar</button>
                                         </div>
                                     </form>

@@ -47,13 +47,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-user"></i> <?php echo $nombres_sesion . " " . $apellidos_sesion; ?></a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?php echo $URL; ?>/App/Controllers/login/cerrar_sesion.php" role="button" class="nav-link">
-                        <i class="nav-icon fas fa-power-off"></i> Salir
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <span><?php echo $nombres_sesion ?></span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="<?php echo $URL; ?>/App/Controllers/login/cerrar_sesion.php" role="button" class="nav-link">
+                        <i class="nav-icon fas fa-power-off"></i>
+                        <span class="d-none d-sm-inline">Salir</span>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -66,11 +72,10 @@
                     style="opacity: .8">
                 <span class="brand-text font-weight-light">Hielo cambita</span>
             </a>
-
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar Menu -->
-                <nav class="mt-3">
+                <nav class="mt-5">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <?php if ($rol_sesion == 'Administrador') : ?>
                             <!-- Modulo de Roles -->
@@ -255,30 +260,6 @@
                         <?php endif; ?>
 
                         <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor') : ?>
-                            <!-- Modulo de pedidos -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link active">
-                                    <i class="nav-icon fas fa-shopping-cart"></i>
-                                    <p>
-                                        Pedidos
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?php echo $URL; ?>/Views/Pedidos" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Lista de pedidos</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?php echo $URL; ?>/Views/Pedidos/create.php" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Crear pedido</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
                             <!-- Modulo de clientes -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -299,6 +280,30 @@
                                         <a href="<?php echo $URL; ?>/Views/Clientes/create.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Crear cliente</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Modulo de pedidos -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
+                                    <p>
+                                        Pedidos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?php echo $URL; ?>/Views/Pedidos" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Lista de pedidos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo $URL; ?>/Views/Pedidos/create.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Crear pedido</p>
                                         </a>
                                     </li>
                                 </ul>

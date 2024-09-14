@@ -31,7 +31,7 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Puestos registrados</h3>

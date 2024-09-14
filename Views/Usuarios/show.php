@@ -41,33 +41,49 @@ include_once '../../App/Controllers/usuarios/show_usuario.php';
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md 4">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Usuario</label>
                                                 <input type="text" name="nombres" value="<?php echo $usuario; ?>" class="form-control" disabled>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Nombres</label>
                                                 <input type="text" name="nombres" value="<?php echo $nombres_usuario; ?>" class="form-control" disabled>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Apellidos</label>
                                                 <input type="text" name="nombres" value="<?php echo $apellidos_usuario; ?>" class="form-control" disabled>
                                             </div>
                                         </div>
-                                        <div class="col-md 4">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Email</label>
                                                 <input type="email" name="email" value="<?php echo $email_usuario; ?>" class="form-control" disabled>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Rol</label>
                                                 <input type="text" name="rol" value="<?php echo $rol; ?>" class="form-control" disabled>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Puesto</label>
                                                 <input type="text" name="puesto" value="<?php echo $puesto; ?>" class="form-control" disabled>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Estado</label>
                                                 <input type="text" name="rol" value="<?php echo $estado_usuario; ?>" class="form-control" disabled>

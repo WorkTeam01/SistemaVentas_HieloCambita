@@ -13,9 +13,9 @@ $sql_abasto = "SELECT aba.IdAbasto, aba.NroAbasto, aba.ComprobanteAbasto, aba.Pr
                 INNER JOIN puesto pue on aba.IdPuesto = pue.IdPuesto
                 WHERE aba.IdAbasto = '$id_abasto_get'";
 
-$query_compra = $pdo->query($sql_abasto);
-$query_compra->execute();
-$abasto_dato = $query_compra->fetchAll(PDO::FETCH_ASSOC);
+$query_abasto = $pdo->query($sql_abasto);
+$query_abasto->execute();
+$abasto_dato = $query_abasto->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($abasto_dato as $abasto_dato) {
     $id_abasto = $abasto_dato['IdAbasto'];
@@ -38,8 +38,8 @@ foreach ($abasto_dato as $abasto_dato) {
     $precio_venta = $abasto_dato['PrecioVenta'];
     $fecha_ingreso = $abasto_dato['FechaIngreso'];
     $imagen = $abasto_dato['ImagenProducto'];
-    $id_puesto_tabla = $abasto_dato['IdPuesto'];
-    $puesto = $abasto_dato['NombrePuesto'];
+    $id_puesto_actual = $abasto_dato['IdPuesto'];
+    $puesto_actual = $abasto_dato['NombrePuesto'];
 
     $id_proveedor_tabla = $abasto_dato['IdProveedor'];
     $nombre_proveedor_tabla = $abasto_dato['NombreProveedor'];

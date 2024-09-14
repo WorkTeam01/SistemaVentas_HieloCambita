@@ -46,7 +46,6 @@ include_once '../../App/Controllers/productos/listado_de_productos.php';
                                             <th class="text-center">Categoría</th>
                                             <th class="text-center">Nombre</th>
                                             <th class="text-center">Imagen</th>
-                                            <th class="text-center">Descripción</th>
                                             <th class="text-center">Stock</th>
                                             <th class="text-center">Precio compra</th>
                                             <th class="text-center">Precio venta</th>
@@ -68,7 +67,6 @@ include_once '../../App/Controllers/productos/listado_de_productos.php';
                                                 <td>
                                                     <img class="rounded mx-auto d-block" src="<?php echo $URL . "/Views/Productos/img_productos/" . $producto_dato['ImagenProducto']; ?>" width="50" alt="Imágen">
                                                 </td>
-                                                <td><?php echo $producto_dato['DescripcionProducto']; ?></td>
                                                 <?php
                                                 $stock_actual = $producto_dato['Stock'];
                                                 $stock_minimo = $producto_dato['StockMinimo'];

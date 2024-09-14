@@ -28,7 +28,7 @@ include_once '../../App/Controllers/roles/listado_de_roles.php';
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Roles registrados</h3>
@@ -55,7 +55,7 @@ include_once '../../App/Controllers/roles/listado_de_roles.php';
                                                 <td class="text-center"><?php echo $contador += 1; ?></td>
                                                 <td><?php echo $roles_dato['RolUsuario']; ?></td>
                                                 <td class="text-center">
-                                                    <a href="update.php?id=<?php echo $id_rol; ?>" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                                    <a href="update.php?id=<?php echo $id_rol; ?>" type="button" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                                 </td>
                                             </tr>
                                         <?php } ?>

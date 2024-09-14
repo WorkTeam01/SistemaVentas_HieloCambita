@@ -458,7 +458,7 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                                 <label>Puesto</label>
                                                 <?php if ($rol_sesion == 'Comprador'): ?>
                                                     <!-- Para usuarios normales, mostrar solo el puesto asignado -->
-                                                    <input type="text" class="form-control" value="<?php echo $puesto; ?>" disabled>
+                                                    <input type="text" class="form-control" value="<?php echo $puesto_actual; ?>" disabled>
                                                     <input type="hidden" id="id_puesto" value="<?php echo $id_puesto_actual; ?>">
                                                 <?php else: ?>
                                                     <!-- Para administradores, mostrar un dropdown con todos los puestos -->

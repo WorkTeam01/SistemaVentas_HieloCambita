@@ -33,7 +33,7 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                         <div class="card-header">
                             <h3 class="card-title">Pedidos registrados</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"> <i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
@@ -43,7 +43,6 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                         <tr>
                                             <th class="text-center">Nro</th>
                                             <th class="text-center">Nro de pedido</th>
-                                            <th class="text-center">Fecha de pedido</th>
                                             <th class="text-center">Productos</th>
                                             <th class="text-center">Cliente</th>
                                             <th class="text-center">Pago del pedido</th>
@@ -64,175 +63,19 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                             <tr>
                                                 <td class="text-center"><?php echo $contador; ?></td>
                                                 <td class="text-center"><?php echo $pedidos_dato['NroPedido']; ?></td>
-                                                <td class="text-center"><?php echo $pedidos_dato['FechaPedido']; ?></td>
                                                 <td class="text-center">
-                                                    <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal-productos<?php echo $id_pedido; ?>">
                                                         <i class="fas fa-shopping-bag"></i> Productos
                                                     </button>
-
-                                                    <!-- Modal de datos del producto -->
-                                                    <div class="modal fade" id="Modal-productos<?php echo $id_pedido; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-primary">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Productos del pedido: <?php echo $pedidos_dato['NroPedido']; ?></h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="table-responsive">
-                                                                        <table class="table table-bordered table-sm table-hover table-striped">
-                                                                            <thead class="bg-secondary">
-                                                                                <tr class="text-center">
-                                                                                    <th>Nro</th>
-                                                                                    <th>Producto</th>
-                                                                                    <th>Descripción</th>
-                                                                                    <th>Cantidad</th>
-                                                                                    <th>Precio unitario</th>
-                                                                                    <th>Subtotal</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <?php
-                                                                                $contador_de_detalles_pedido = 0;
-                                                                                $cantidad_total = 0;
-                                                                                $total_precio_unitario = 0;
-                                                                                $precio_total = 0;
-
-                                                                                $NroPedido = $pedidos_dato['NroPedido'];
-                                                                                $sql_detalle_pedido = "SELECT dtp.*, p.IdProducto, p.NombreProducto, p.DescripcionProducto, p.PrecioVenta, p.Stock FROM detalle_pedido dtp
-                                                                                INNER JOIN producto p on dtp.IdProducto = p.IdProducto
-                                                                                WHERE NroPedido = '$NroPedido' ORDER BY IdDetallePedido ASC";
-                                                                                $query_detalle_pedido = $pdo->prepare($sql_detalle_pedido);
-                                                                                $query_detalle_pedido->execute();
-                                                                                $detalle_pedido_datos = $query_detalle_pedido->fetchAll(PDO::FETCH_ASSOC);
-
-                                                                                foreach ($detalle_pedido_datos as $detalle_pedido_dato) {
-                                                                                    $id_detalle_pedido = $detalle_pedido_dato['IdDetallePedido'];
-                                                                                    $contador_de_detalles_pedido += 1;
-                                                                                    $cantidad_total = $cantidad_total + $detalle_pedido_dato['Cantidad'];
-                                                                                    $total_precio_unitario = $total_precio_unitario + floatval($detalle_pedido_dato['PrecioVenta']);
-                                                                                ?>
-                                                                                    <tr>
-                                                                                        <td class="text-center">
-                                                                                            <?php echo $contador_de_detalles_pedido; ?>
-                                                                                            <input type="text" value="<?php echo $detalle_pedido_dato['IdProducto']; ?>" id="id_producto<?php echo $contador_de_detalles_pedido; ?>" hidden>
-                                                                                        </td>
-                                                                                        <td><?php echo $detalle_pedido_dato['NombreProducto']; ?></td>
-                                                                                        <td><?php echo $detalle_pedido_dato['DescripcionProducto']; ?></td>
-                                                                                        <td class="text-center">
-                                                                                            <span id="cantidad_detalle_pedido<?php echo $contador_de_detalles_pedido; ?>"><?php echo $detalle_pedido_dato['Cantidad']; ?></span>
-                                                                                            <input type="text" class="form-control" value="<?php echo $detalle_pedido_dato['Stock']; ?>" id="stock_de_inventario<?php echo $contador_de_detalles_pedido; ?>" hidden>
-                                                                                        </td>
-                                                                                        <td class="text-center"><?php echo $detalle_pedido_dato['PrecioVenta']; ?></td>
-                                                                                        <td class="text-center">
-                                                                                            <?php
-                                                                                            $cantidad = floatval($detalle_pedido_dato['Cantidad']);
-                                                                                            $precio_venta = floatval($detalle_pedido_dato['PrecioVenta']);
-                                                                                            echo $subtotal = $cantidad * $precio_venta;
-                                                                                            $precio_total = $precio_total + $subtotal;
-                                                                                            ?>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                <?php } ?>
-                                                                                <tr>
-                                                                                    <th class="bg-secondary text-right" colspan="3">Total</th>
-                                                                                    <th class="text-center"><?php echo $cantidad_total; ?></th>
-                                                                                    <th class="text-center"><?php echo $total_precio_unitario; ?></th>
-                                                                                    <th class="text-center bg-warning"><?php echo $precio_total; ?></th>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="text-center">
-                                                        <!-- Button trigger modal -->
                                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal-cliente<?php echo $id_pedido; ?>">
                                                             <i class="fas fa-user"></i>
                                                             <?php
-                                                            if (!empty($pedidos_dato['RazonSocial'])) {
-                                                                echo $pedidos_dato['RazonSocial'];
-                                                            } else {
-                                                                echo $pedidos_dato['NombreCliente'];
-                                                            }
+                                                            echo !empty($pedidos_dato['RazonSocial']) ? $pedidos_dato['RazonSocial'] : $pedidos_dato['NombreCliente'];
                                                             ?>
                                                         </button>
-                                                    </div>
-                                                    <!-- Modal para clientes -->
-                                                    <div class="modal fade" id="Modal-cliente<?php echo $id_pedido; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-sm" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-primary">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Datos del cliente</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <?php
-                                                                $sql_clientes = "SELECT c.IdCliente, c.CelularCliente, c.DescuentoCliente, cj.RazonSocial, cj.RepresentanteLegal, cj.EmailJuridico, cn.NombreCliente, cn.Genero
-                                                                FROM cliente c
-                                                                LEFT JOIN cjuridico cj on c.IdCliente = cj.IdCliente
-                                                                LEFT JOIN cnatural cn on c.IdCliente = cn.IdCliente
-                                                                WHERE c.IdCliente = '$id_cliente'";
-
-                                                                $query_clientes = $pdo->query($sql_clientes);
-                                                                $query_clientes->execute();
-                                                                $clientes_datos = $query_clientes->fetchAll(PDO::FETCH_ASSOC);
-
-                                                                foreach ($clientes_datos as $clientes_dato) : ?>
-                                                                    <div class="modal-body">
-                                                                        <!-- Diferenciar entre clientes naturales y jurídicos -->
-                                                                        <?php if (!empty($clientes_dato['RazonSocial'])): ?>
-                                                                            <!-- Cliente Jurídico -->
-                                                                            <div class="form-group">
-                                                                                <label>Razón Social</label>
-                                                                                <input type="text" class="form-control" value="<?php echo $clientes_dato['RazonSocial']; ?>" disabled>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Representante Legal</label>
-                                                                                <input type="text" class="form-control" value="<?php echo $clientes_dato['RepresentanteLegal']; ?>" disabled>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Email</label>
-                                                                                <input type="email" class="form-control" value="<?php echo $clientes_dato['EmailJuridico']; ?>" disabled>
-                                                                            </div>
-                                                                        <?php else: ?>
-                                                                            <!-- Cliente Natural -->
-                                                                            <div class="form-group">
-                                                                                <label>Nombre</label>
-                                                                                <input type="text" class="form-control" value="<?php echo $clientes_dato['NombreCliente']; ?>" disabled>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Género</label>
-                                                                                <input type="text" class="form-control" value="<?php echo $clientes_dato['Genero']; ?>" disabled>
-                                                                            </div>
-                                                                        <?php endif; ?>
-                                                                        <div class="form-group">
-                                                                            <label>Celular</label>
-                                                                            <input type="text" class="form-control" value="<?php echo $clientes_dato['CelularCliente']; ?>" disabled>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>Descuento</label>
-                                                                            <input type="text" class="form-control" value="<?php echo $clientes_dato['DescuentoCliente']; ?>" disabled>
-                                                                        </div>
-                                                                        <hr>
-                                                                    </div>
-                                                                <?php endforeach; ?>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
@@ -254,9 +97,9 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_pedido; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
                                                         <?php if ($rol_sesion == 'Administrador') : ?>
-                                                            <a href="delete.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+                                                            <a href="delete.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $pedidos_dato['NroPedido']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
                                                         <?php endif; ?>
-                                                        <a href="nota_de_entrega.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $NroPedido; ?>" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Imprimir</a>
+                                                        <a href="nota_de_entrega.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $pedidos_dato['NroPedido']; ?>" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Imprimir</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -276,6 +119,163 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
 
 <?php include_once '../../Views/Layouts/mensajes.php'; ?>
 <?php include_once '../../Views/Layouts/footer.php'; ?>
+
+<!-- Modales de productos y clientes fuera del bucle principal -->
+<?php foreach ($pedidos_datos as $pedidos_dato) :
+    $id_pedido = $pedidos_dato['IdPedido'];
+    $id_cliente = $pedidos_dato['IdCliente'];
+    $NroPedido = $pedidos_dato['NroPedido'];
+?>
+    <!-- Modal de datos del producto -->
+    <div class="modal fade" id="Modal-productos<?php echo $id_pedido; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="exampleModalLabel">Productos del pedido: <?php echo $pedidos_dato['NroPedido']; ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm table-hover table-striped">
+                            <thead class="bg-secondary">
+                                <tr class="text-center">
+                                    <th>Nro</th>
+                                    <th>Producto</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio unitario</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $contador_de_detalles_pedido = 0;
+                                $cantidad_total = 0;
+                                $total_precio_unitario = 0;
+                                $precio_total = 0;
+
+                                $NroPedido = $pedidos_dato['NroPedido'];
+                                $sql_detalle_pedido = "SELECT dtp.*, p.IdProducto, p.NombreProducto, p.DescripcionProducto, p.PrecioVenta, p.Stock FROM detalle_pedido dtp
+                                                    INNER JOIN producto p on dtp.IdProducto = p.IdProducto
+                                                    WHERE NroPedido = '$NroPedido' ORDER BY IdDetallePedido ASC";
+                                $query_detalle_pedido = $pdo->prepare($sql_detalle_pedido);
+                                $query_detalle_pedido->execute();
+                                $detalle_pedido_datos = $query_detalle_pedido->fetchAll(PDO::FETCH_ASSOC);
+
+                                foreach ($detalle_pedido_datos as $detalle_pedido_dato) {
+                                    $id_detalle_pedido = $detalle_pedido_dato['IdDetallePedido'];
+                                    $contador_de_detalles_pedido += 1;
+                                    $cantidad_total = $cantidad_total + $detalle_pedido_dato['Cantidad'];
+                                    $total_precio_unitario = $total_precio_unitario + floatval($detalle_pedido_dato['PrecioVenta']);
+                                ?>
+                                    <tr>
+                                        <td class="text-center">
+                                            <?php echo $contador_de_detalles_pedido; ?>
+                                            <input type="text" value="<?php echo $detalle_pedido_dato['IdProducto']; ?>" id="id_producto<?php echo $contador_de_detalles_pedido; ?>" hidden>
+                                        </td>
+                                        <td><?php echo $detalle_pedido_dato['NombreProducto']; ?></td>
+                                        <td><?php echo $detalle_pedido_dato['DescripcionProducto']; ?></td>
+                                        <td class="text-center">
+                                            <span id="cantidad_detalle_pedido<?php echo $contador_de_detalles_pedido; ?>"><?php echo $detalle_pedido_dato['Cantidad']; ?></span>
+                                            <input type="text" class="form-control" value="<?php echo $detalle_pedido_dato['Stock']; ?>" id="stock_de_inventario<?php echo $contador_de_detalles_pedido; ?>" hidden>
+                                        </td>
+                                        <td class="text-center"><?php echo $detalle_pedido_dato['PrecioVenta']; ?></td>
+                                        <td class="text-center">
+                                            <?php
+                                            $cantidad = floatval($detalle_pedido_dato['Cantidad']);
+                                            $precio_venta = floatval($detalle_pedido_dato['PrecioVenta']);
+                                            echo $subtotal = $cantidad * $precio_venta;
+                                            $precio_total = $precio_total + $subtotal;
+                                            ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                <tr>
+                                    <th class="bg-secondary text-right" colspan="3">Total</th>
+                                    <th class="text-center"><?php echo $cantidad_total; ?></th>
+                                    <th class="text-center"><?php echo $total_precio_unitario; ?></th>
+                                    <th class="text-center bg-warning"><?php echo $precio_total; ?></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para clientes -->
+    <div class="modal fade" id="Modal-cliente<?php echo $id_pedido; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="exampleModalLabel">Datos del cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <?php
+                $sql_clientes = "SELECT c.IdCliente, c.CelularCliente, c.DescuentoCliente, cj.RazonSocial, cj.RepresentanteLegal, cj.EmailJuridico, cn.NombreCliente, cn.Genero
+                            FROM cliente c
+                            LEFT JOIN cjuridico cj on c.IdCliente = cj.IdCliente
+                            LEFT JOIN cnatural cn on c.IdCliente = cn.IdCliente
+                            WHERE c.IdCliente = '$id_cliente'";
+
+                $query_clientes = $pdo->query($sql_clientes);
+                $query_clientes->execute();
+                $clientes_datos = $query_clientes->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($clientes_datos as $clientes_dato) : ?>
+                    <div class="modal-body">
+                        <!-- Diferenciar entre clientes naturales y jurídicos -->
+                        <?php if (!empty($clientes_dato['RazonSocial'])): ?>
+                            <!-- Cliente Jurídico -->
+                            <div class="form-group">
+                                <label>Razón Social</label>
+                                <input type="text" class="form-control" value="<?php echo $clientes_dato['RazonSocial']; ?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Representante Legal</label>
+                                <input type="text" class="form-control" value="<?php echo $clientes_dato['RepresentanteLegal']; ?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" value="<?php echo $clientes_dato['EmailJuridico']; ?>" disabled>
+                            </div>
+                        <?php else: ?>
+                            <!-- Cliente Natural -->
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" value="<?php echo $clientes_dato['NombreCliente']; ?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Género</label>
+                                <input type="text" class="form-control" value="<?php echo $clientes_dato['Genero']; ?>" disabled>
+                            </div>
+                        <?php endif; ?>
+                        <div class="form-group">
+                            <label>Celular</label>
+                            <input type="text" class="form-control" value="<?php echo $clientes_dato['CelularCliente']; ?>" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Descuento</label>
+                            <input type="text" class="form-control" value="<?php echo $clientes_dato['DescuentoCliente']; ?>" disabled>
+                        </div>
+                        <hr>
+                    </div>
+                <?php endforeach; ?>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 
 <!-- Page specific script -->
 <script>

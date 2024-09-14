@@ -51,13 +51,13 @@ include_once '../../App/Controllers/usuarios/listado_de_usuarios.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $contador = 0;
+                                        $contador = 1;
                                         foreach ($usuarios_datos as $usuarios_dato) {
                                             $id_usuario = $usuarios_dato['IdUsuario'];
                                             $estado_usuario = $usuarios_dato['EstadoUsuario'];
                                         ?>
                                             <tr>
-                                                <td class="text-center"><?php echo $contador += 1; ?></td>
+                                                <td class="text-center"><?php echo $contador++; ?></td>
                                                 <td><?php echo $usuarios_dato['NombresUsuario']; ?></td>
                                                 <td><?php echo $usuarios_dato['EmailUsuario']; ?></td>
                                                 <td><?php echo $usuarios_dato['RolUsuario']; ?></td>
