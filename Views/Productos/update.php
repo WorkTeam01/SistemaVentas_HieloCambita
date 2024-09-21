@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarPermiso('Administrador');
+$usuario = $auth->verificarPermisoYAdmin('productos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/categorias/listado_de_categorias.php';

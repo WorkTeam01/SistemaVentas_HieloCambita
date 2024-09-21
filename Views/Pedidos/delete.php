@@ -7,7 +7,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarPermiso('Administrador');
+$usuario = $auth->verificarPermisoYAdmin('pedidos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/pedidos/cargar_pedido.php';
@@ -193,19 +193,19 @@ include_once '../../App/Controllers/tipo_pago/cargar_tipo_pago.php';
                                     <div class="form-group">
                                         <input type="text" id="id_usuario" value="<?php echo $id_usuario_sesion; ?>" class="form-control" hidden>
                                         <label>Usuario</label>
-                                        <input type="text" class="form-control" value="<?php echo $usuario_sesion; ?>" disabled>
+                                        <input type="text" class="form-control" value="<?php echo $usuario_pedido; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Nombres del usuario</label>
-                                        <input type="text" class="form-control" value="<?php echo $nombres_sesion . " " . $apellidos_sesion; ?>" disabled>
+                                        <input type="text" class="form-control" value="<?php echo $nombres_usuario_pedido . " " . $apellidos_usuario_pedido; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Puesto del usuario</label>
-                                        <input type="text" class="form-control" value="<?php echo $puesto_usuario_sesion; ?>" disabled>
+                                        <input type="text" class="form-control" value="<?php echo $nombre_puesto; ?>" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@ include_once '../../App/Controllers/tipo_pago/cargar_tipo_pago.php';
                             <hr>
                             <div class="form-group">
                                 <button type="button" id="btn_eliminar_pedido" class="btn btn-danger btn-block"><i class="fas fa-trash"></i> Eliminar pedido</button>
-                                <a href="<?php echo $URL; ?>/Views/Pedidos" class="btn btn-secondary btn-block">Volver</a>
+                                <a href="<?php echo $URL; ?>/Views/Pedidos" class="btn btn-secondary btn-block">Cancelar</a>
                                 <div id="respuesta_eliminar_pedido"></div>
                             </div>
                             <script>

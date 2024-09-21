@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarPermiso('Administrador');
+$usuario = $auth->verificarPermiso('proveedores');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
@@ -17,9 +17,11 @@ include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de proveedores
-                        <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
-                            <i class="fas fa-plus"></i> Crear nuevo
-                        </button>
+                        <?php if ($auth->tienePermiso('proveedores')) : ?>
+                            <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
+                                <i class="fas fa-plus"></i> Crear nuevo
+                            </button>
+                        <?php endif; ?>
                     </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -73,8 +75,13 @@ include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
                                                 <td><?php echo $proveedor_dato['DireccionProveedor']; ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group">
-                                                        <a type="button" href="update.php?id=<?php echo $id_proveedor; ?>" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
-                                                        <a type="button" href="delete.php?id=<?php echo $id_proveedor; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                                        <?php if ($auth->tienePermiso('proveedores')) : ?>
+                                                            <a type="button" href="update.php?id=<?php echo $id_proveedor; ?>" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                                        <?php endif; ?>
+
+                                                        <?php if ($auth->tienePermiso('proveedores') && $auth->isAdmin()) : ?>
+                                                            <a type="button" href="delete.php?id=<?php echo $id_proveedor; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </td>
                                             </tr>

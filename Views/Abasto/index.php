@@ -4,10 +4,9 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Comprador']);
+$usuario = $auth->verificarPermiso('abastos');
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/abasto/listado_de_abastos.php';
 
 ?>
@@ -38,16 +37,18 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
-                            <!-- Filtros de puesto -->
-                            <div class="dropright mb-3">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    Filtro de puestos
-                                </button>
-                                <div class="dropdown-menu" id="puestoDropdown">
-                                    <!-- Opciones generadas dinámicamente aquí -->
+                            <?php if ($auth->isAdmin() && $auth->tienePermiso('abastos')) : ?>
+                                <!-- Filtros de puesto -->
+                                <div class="dropright mb-3">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Filtro de puestos
+                                    </button>
+                                    <div class="dropdown-menu" id="puestoDropdown">
+                                        <!-- Opciones generadas dinámicamente aquí -->
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Final de filtro -->
+                                <!-- Final de filtro -->
+                            <?php endif; ?>
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-hover table-striped table-sm">
                                     <thead>
@@ -95,8 +96,10 @@ include_once '../../App/Controllers/abasto/listado_de_abastos.php';
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_abasto; ?>" type="button" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                                        <a href="update.php?id=<?php echo $id_abasto; ?>" type="button" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
-                                                        <a href="delete.php?id=<?php echo $id_abasto; ?>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+                                                        <?php if ($auth->tienePermiso('abastos') && $auth->isAdmin()) : ?>
+                                                            <a href="update.php?id=<?php echo $id_abasto; ?>" type="button" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                                            <a href="delete.php?id=<?php echo $id_abasto; ?>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </td>
                                             </tr>

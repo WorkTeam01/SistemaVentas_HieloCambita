@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Comprador']);
+$usuario = $auth->verificarPermisoYAdmin('abastos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/abasto/cargar_abasto.php';

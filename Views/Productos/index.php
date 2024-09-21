@@ -1,10 +1,10 @@
 <?php
 require_once '../../App/config.php';
-require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+require_once '../../Views/Layouts/sesion.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
+$usuario = $auth->verificarPermiso('productos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/productos/listado_de_productos.php';
@@ -87,7 +87,7 @@ include_once '../../App/Controllers/productos/listado_de_productos.php';
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                                        <?php if ($rol_sesion == 'Administrador') : ?>
+                                                        <?php if ($auth->isAdmin() && $auth->tienePermiso('productos')) : ?>
                                                             <a href="update.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                                             <a href="delete.php?id=<?php echo $id_producto; ?>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
                                                         <?php endif; ?>

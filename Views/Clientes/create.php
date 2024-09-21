@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Vendedor']);
+$usuario = $auth->verificarPermiso('clientes');
 
 include_once '../../Views/Layouts/header.php';
 

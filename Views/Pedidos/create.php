@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
+$usuario = $auth->verificarPermiso('pedidos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
@@ -417,7 +417,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Puesto del usuario</label>
-                                        <input type="text" class="form-control" value="<?php echo $puesto_usuario_sesion; ?>" disabled>
+                                        <input type="text" class="form-control" value="<?php echo $puesto_sesion; ?>" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -455,8 +455,17 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                             </div>
                             <div class="form-group">
                                 <label>Puesto</label>
-                                <input type="text" id="id_puesto" class="form-control" value="<?= $id_puesto_sesion; ?>" hidden>
-                                <input type="text" id="nombre_puesto" class="form-control" value="<?php echo $puesto_usuario_sesion; ?>" disabled>
+                                <select id="id_puesto" name="id_puesto" class="form-control mr-2" <?php echo (!$auth->isAdmin()) ? 'disabled' : ''; ?>>
+                                    <?php if ($auth->isAdmin()): ?>
+                                        <option value="">Todos los puestos</option>
+                                    <?php endif; ?>
+                                    <?php foreach ($puestos_datos as $puesto): ?>
+                                        <option value="<?php echo $puesto['IdPuesto']; ?>"
+                                            <?php echo ($puesto['IdPuesto'] == $id_puesto_sesion) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($puesto['NombrePuesto']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Monto a cancelar</label>
@@ -592,6 +601,32 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
 <?php include_once '../../Views/Layouts/footer.php'; ?>
 
 <script>
+    $(document).ready(function() {
+        var isAdmin = <?php echo json_encode($auth->isAdmin()); ?>;
+        var idPuestoSesion = <?php echo json_encode($id_puesto_sesion); ?>;
+        var puestoSesion = <?php echo json_encode($puesto_sesion); ?>;
+
+        var $puestoSelect = $('#id_puesto');
+
+        if (!isAdmin) {
+            // Si no es admin, asegurarse de que solo se muestre el puesto del usuario
+            $puestoSelect.find('option').not(':selected').remove();
+            $puestoSelect.prop('disabled', true);
+        } else {
+            // Si es admin, añadir la opción "Todos los puestos" si no existe
+            if ($puestoSelect.find('option[value=""]').length === 0) {
+                $puestoSelect.prepend('<option value="">Todos los puestos</option>');
+            }
+
+            // Manejar el cambio en el selector
+            $puestoSelect.on('change', function() {
+                var selectedPuesto = $(this).val();
+                // Aquí puedes añadir la lógica para actualizar la tabla o realizar otras acciones
+                console.log('Puesto seleccionado:', selectedPuesto);
+            });
+        }
+    });
+
     $("#example1").DataTable({
         "responsive": true,
         "autoWidth": false,

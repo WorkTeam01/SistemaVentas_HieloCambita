@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
+$usuario = $auth->verificarPermiso('categorias');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/categorias/listado_de_categorias.php';
@@ -17,11 +17,7 @@ include_once '../../App/Controllers/categorias/listado_de_categorias.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de categorías
-                        <?php if ($rol_sesion != 'Administrador') : ?>
-                            <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create" disabled>
-                                <i class="fas fa-plus"></i> Crear nueva
-                            </button>
-                        <?php else : ?>
+                        <?php if ($auth->tienePermiso('categorias')) : ?>
                             <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
                                 <i class="fas fa-plus"></i> Crear nueva
                             </button>
@@ -66,15 +62,12 @@ include_once '../../App/Controllers/categorias/listado_de_categorias.php';
                                                 <td><?php echo $nombre_categoria; ?></td>
                                                 <td class="text-center">
                                                     <div>
-                                                        <?php if ($rol_sesion != 'Administrador') : ?>
-                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_categoria; ?>" disabled>
-                                                                <i class="fas fa-pencil-alt"></i> Editar
-                                                            </button>
-                                                        <?php else : ?>
+                                                        <?php if ($auth->tienePermiso('categorias') && $auth->isAdmin()) : ?>
                                                             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_categoria; ?>">
                                                                 <i class="fas fa-pencil-alt"></i> Editar
                                                             </button>
                                                         <?php endif; ?>
+
                                                         <!-- Modal update categorias -->
                                                         <div class="modal fade" id="modal-update<?php echo $id_categoria; ?>">
                                                             <div class="modal-dialog">

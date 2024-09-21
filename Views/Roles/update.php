@@ -4,10 +4,9 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarPermiso('Administrador');
+$usuario = $auth->verificarPermisoYAdmin('roles');
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/roles/update_roles.php';
 
 ?>

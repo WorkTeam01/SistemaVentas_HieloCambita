@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
+$usuario = $auth->verificarPermiso('tipos_pago');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
@@ -17,11 +17,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de tipos de pagos
-                        <?php if ($rol_sesion != 'Administrador') : ?>
-                            <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create" disabled>
-                                <i class="fas fa-plus"></i> Crear nueva
-                            </button>
-                        <?php else : ?>
+                        <?php if ($auth->isAdmin() && $auth->tienePermiso('tipos_pago')) : ?>
                             <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
                                 <i class="fas fa-plus"></i> Crear nueva
                             </button>
@@ -66,11 +62,7 @@ include_once '../../App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
                                                 <td><?php echo $tipo_pago; ?></td>
                                                 <td>
                                                     <div class="text-center">
-                                                        <?php if ($rol_sesion != 'Administrador') : ?>
-                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_tipo_pago; ?>" disabled>
-                                                                <i class="fas fa-pencil-alt"></i> Editar
-                                                            </button>
-                                                        <?php else : ?>
+                                                        <?php if ($auth->isAdmin() && $auth->tienePermiso('tipos_pago')) : ?>
                                                             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_tipo_pago; ?>">
                                                                 <i class="fas fa-pencil-alt"></i> Editar
                                                             </button>

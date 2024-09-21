@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Comprador']);
+$usuario = $auth->verificarPermiso('abastos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/abasto/cargar_abasto.php';
@@ -67,7 +67,7 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Puesto del producto</label>
-                                                        <input type="text" value="<?php echo $puesto; ?>" class="form-control" disabled>
+                                                        <input type="text" value="<?php echo $puesto_actual; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,7 +215,7 @@ include_once '../../App/Controllers/abasto/cargar_abasto.php';
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Puesto</label>
-                                                <input type="text" class="form-control" value="<?php echo $puesto; ?>" disabled>
+                                                <input type="text" class="form-control" value="<?php echo $puesto_actual; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12">

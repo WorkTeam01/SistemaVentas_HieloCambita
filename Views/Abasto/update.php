@@ -1,9 +1,12 @@
 <?php
 require_once '../../App/config.php';
 require_once '../../Views/Layouts/sesion.php';
+require_once '../../App/Controllers/middleware/AuthMiddleware.php';
+
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarPermisoYAdmin('abastos');
 
 include_once '../../Views/Layouts/header.php';
-
 include_once '../../App/Controllers/productos/listado_de_productos.php';
 include_once '../../App/Controllers/proveedores/listado_de_proveedores.php';
 include_once '../../App/Controllers/abasto/cargar_abasto.php';
@@ -178,7 +181,7 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Puesto del producto</label>
-                                                        <input type="text" id="puesto" value="<?php echo $puesto; ?>" class="form-control" disabled>
+                                                        <input type="text" id="puesto" value="<?php echo $puesto_actual; ?>" class="form-control" disabled>
                                                     </div>
                                                 </div>
                                             </div>

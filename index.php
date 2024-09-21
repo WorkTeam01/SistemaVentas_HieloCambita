@@ -1,8 +1,33 @@
 <?php
-include_once 'App/config.php';
-include_once 'Views/Layouts/sesion.php';
-include_once 'Views/Layouts/header.php';
+require_once 'App/config.php';
+require_once 'Views/Layouts/sesion.php';
+require_once 'App/Controllers/middleware/AuthMiddleware.php';
 
+$auth = new AuthMiddleware($pdo, $URL);
+$usuario = $auth->verificarSesion(); // Verifica la sesión del usuario y obtiene sus datos
+
+// Definir los permisos requeridos para cada sección
+$permisos_requeridos = [
+    'dashboard',
+    'roles',
+    'usuarios',
+    'proveedores',
+    'puestos',
+    'categorias',
+    'productos',
+    'abastos',
+    'tipos_pago',
+    'clientes',
+    'pedidos',
+    'permisos'
+];
+
+// No es necesario verificar todos los permisos aquí, solo asegurarse de que el usuario tenga acceso al dashboard
+if (!$auth->tienePermiso('dashboard') && !$auth->isAdmin()) {
+    header('Location: ' . $URL . '/Views/login.php');
+}
+
+include_once 'Views/Layouts/header.php';
 include_once 'App/Controllers/usuarios/listado_de_usuarios.php';
 include_once 'App/Controllers/roles/listado_de_roles.php';
 include_once 'App/Controllers/categorias/listado_de_categorias.php';
@@ -13,6 +38,7 @@ include_once 'App/Controllers/puesto/listado_de_puestos.php';
 include_once 'App/Controllers/tipo_pago/listado_de_tipo_pagos.php';
 include_once 'App/Controllers/clientes/listado_de_clientes.php';
 include_once 'App/Controllers/pedidos/listado_de_pedidos.php';
+include_once 'App/Controllers/permisos/listado_de_permisos.php';
 
 include_once 'Views/Layouts/mensajes.php';
 
@@ -35,7 +61,7 @@ include_once 'Views/Layouts/mensajes.php';
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <?php if ($rol_sesion == 'Administrador') : ?>
+                <?php if ($auth->isAdmin() && $auth->tienePermiso('usuarios')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de usuarios -->
                         <div class="small-box bg-warning">
@@ -53,6 +79,9 @@ include_once 'Views/Layouts/mensajes.php';
                             </a>
                         </div>
                     </div>
+                <?php endif; ?>
+
+                <?php if ($auth->isAdmin() && $auth->tienePermiso('roles')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de roles -->
                         <div class="small-box bg-info">
@@ -70,6 +99,27 @@ include_once 'Views/Layouts/mensajes.php';
                             </a>
                         </div>
                     </div>
+                <?php endif; ?>
+
+                <?php if ($auth->isAdmin() && $auth->tienePermiso('permisos')) : ?>
+                    <div class="col-lg-3 col-6">
+                        <!-- Tarjeta de permisos -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3><?php echo $total_permisos; ?></h3>
+                                <p>Permisos registrados</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <a href="<?php echo $URL; ?>/Views/Permisos" class="small-box-footer">
+                                Mas detalles <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($auth->tienePermiso('puestos')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de puestos -->
                         <div class="small-box bg-purple">
@@ -87,7 +137,7 @@ include_once 'Views/Layouts/mensajes.php';
                     </div>
                 <?php endif; ?>
 
-                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor' || $rol_sesion == 'Comprador') : ?>
+                <?php if ($auth->tienePermiso('categorias')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de categorias -->
                         <div class="small-box bg-success">
@@ -103,6 +153,9 @@ include_once 'Views/Layouts/mensajes.php';
                             </a>
                         </div>
                     </div>
+                <?php endif; ?>
+
+                <?php if ($auth->tienePermiso('productos')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de productos -->
                         <div class="small-box bg-primary">
@@ -110,7 +163,11 @@ include_once 'Views/Layouts/mensajes.php';
                                 <h3><?php echo $total_productos; ?></h3>
                                 <p>Productos registrados</p>
                             </div>
-                            <?php if ($rol_sesion == 'Administrador') : ?>
+                            <?php if ($rol_sesion != 'Administrador') : ?>
+                                <div class="icon">
+                                    <i class="fas fa-boxes"></i>
+                                </div>
+                            <?php else : ?>
                                 <a href="<?php echo $URL; ?>/Views/Productos/create.php">
                                     <div class="icon">
                                         <i class="fas fa-boxes"></i>
@@ -124,7 +181,7 @@ include_once 'Views/Layouts/mensajes.php';
                     </div>
                 <?php endif; ?>
 
-                <?php if ($rol_sesion == 'Administrador') : ?>
+                <?php if ($auth->tienePermiso('proveedores')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de proveedores -->
                         <div class="small-box bg-secondary">
@@ -142,7 +199,7 @@ include_once 'Views/Layouts/mensajes.php';
                     </div>
                 <?php endif; ?>
 
-                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Comprador') : ?>
+                <?php if ($auth->tienePermiso('abastos')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de abastos -->
                         <div class="small-box bg-danger">
@@ -162,7 +219,7 @@ include_once 'Views/Layouts/mensajes.php';
                     </div>
                 <?php endif; ?>
 
-                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Comprador' || $rol_sesion == 'Vendedor') : ?>
+                <?php if ($auth->tienePermiso('tipos_pago')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de tipos de pagos -->
                         <div class="small-box bg-light">
@@ -180,7 +237,7 @@ include_once 'Views/Layouts/mensajes.php';
                     </div>
                 <?php endif; ?>
 
-                <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor') : ?>
+                <?php if ($auth->tienePermiso('clientes')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de clientes -->
                         <div class="small-box bg-indigo">
@@ -188,14 +245,19 @@ include_once 'Views/Layouts/mensajes.php';
                                 <h3><?php echo $total_clientes; ?></h3>
                                 <p>Clientes registrados</p>
                             </div>
-                            <div class="icon">
-                                <i class="fas fa-user-alt"></i>
-                            </div>
+                            <a href="<?php echo $URL; ?>/Views/Clientes/create.php">
+                                <div class="icon">
+                                    <i class="fas fa-user-alt"></i>
+                                </div>
+                            </a>
                             <a href="<?php echo $URL; ?>/Views/Clientes" class="small-box-footer">
                                 Mas detalles <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
                     </div>
+                <?php endif; ?>
+
+                <?php if ($auth->tienePermiso('pedidos')) : ?>
                     <div class="col-lg-3 col-6">
                         <!-- Tarjeta de pedidos -->
                         <div class="small-box bg-olive">

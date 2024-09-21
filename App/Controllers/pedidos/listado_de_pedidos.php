@@ -44,3 +44,8 @@ $resultado_ultimo_pedido = $query_ultimo_pedido->fetch(PDO::FETCH_ASSOC);
 // Incrementar el contador para el nuevo pedido
 $contador_de_pedidos = $resultado_ultimo_pedido['ultimo_pedido'] + 1;
 $pedidos_datos = $query_pedidos->fetchAll(PDO::FETCH_ASSOC);
+
+// En tu controlador PHP
+$sql_puestos = "SELECT IdPuesto, NombrePuesto FROM puesto ORDER BY IdPuesto DESC";
+$query_puestos = $pdo->query($sql_puestos);
+$puestos_datos = $query_puestos->fetchAll(PDO::FETCH_ASSOC);

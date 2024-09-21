@@ -49,7 +49,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
-                        <span><?php echo $nombres_sesion ?></span>
+                        <span><?php echo $nombres_sesion; ?></span>
                     </a>
                 </li>
 
@@ -59,7 +59,6 @@
                         <span class="d-none d-sm-inline">Salir</span>
                     </a>
                 </li>
-
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -77,7 +76,7 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-5">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <?php if ($rol_sesion == 'Administrador') : ?>
+                        <?php if (esAdmin() && tienePermiso('roles')) : ?>
                             <!-- Modulo de Roles -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -102,6 +101,9 @@
                                     </li>
                                 </ul>
                             </li>
+                        <?php endif; ?>
+
+                        <?php if (esAdmin() && tienePermiso('usuarios')) : ?>
                             <!-- Modulo de usuarios -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -126,6 +128,30 @@
                                     </li>
                                 </ul>
                             </li>
+                        <?php endif; ?>
+
+                        <?php if (esAdmin() && tienePermiso('permisos')) : ?>
+                            <!-- Modulo de permisos -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-list-check"></i>
+                                    <p>
+                                        Permisos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?php echo $URL; ?>/Views/Permisos" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Asignar permisos</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if (tienePermiso('proveedores')) : ?>
                             <!-- Modulo de proveedores -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -144,6 +170,9 @@
                                     </li>
                                 </ul>
                             </li>
+                        <?php endif; ?>
+
+                        <?php if (tienePermiso('puestos')) : ?>
                             <!-- Modulo de puestos -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -164,7 +193,7 @@
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Comprador' || $rol_sesion == 'Vendedor') : ?>
+                        <?php if (tienePermiso('categorias')) : ?>
                             <!-- Modulo de categorias -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -183,6 +212,9 @@
                                     </li>
                                 </ul>
                             </li>
+                        <?php endif; ?>
+
+                        <?php if (tienePermiso('productos')) : ?>
                             <!-- Modulo de productos -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -199,7 +231,7 @@
                                             <p>Lista de productos</p>
                                         </a>
                                     </li>
-                                    <?php if ($rol_sesion == 'Administrador') : ?>
+                                    <?php if (esAdmin() && tienePermiso('productos')) : ?>
                                         <li class="nav-item">
                                             <a href="<?php echo $URL; ?>/Views/Productos/create.php" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
@@ -211,7 +243,7 @@
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Comprador') : ?>
+                        <?php if (tienePermiso('abastos')) : ?>
                             <!-- Modulo de abasto -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -238,7 +270,7 @@
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor' || $rol_sesion == 'Comprador') : ?>
+                        <?php if (tienePermiso('tipos_pago')) : ?>
                             <!-- Modulo de tipos de pago -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -259,7 +291,7 @@
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($rol_sesion == 'Administrador' || $rol_sesion == 'Vendedor') : ?>
+                        <?php if (tienePermiso('clientes')) : ?>
                             <!-- Modulo de clientes -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -284,6 +316,9 @@
                                     </li>
                                 </ul>
                             </li>
+                        <?php endif; ?>
+
+                        <?php if (tienePermiso('pedidos')) : ?>
                             <!-- Modulo de pedidos -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">

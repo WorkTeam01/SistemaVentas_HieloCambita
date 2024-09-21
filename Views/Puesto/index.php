@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarPermiso('Administrador');
+$usuario = $auth->verificarPermiso('puestos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/puesto/listado_de_puestos.php';
@@ -17,9 +17,11 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0">Lista de puestos
-                        <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
-                            <i class="fas fa-plus"></i> Crear nuevo
-                        </button>
+                        <?php if ($auth->tienePermiso('puestos') && $auth->isAdmin()) : ?>
+                            <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#modal-create">
+                                <i class="fas fa-plus"></i> Crear nuevo
+                            </button>
+                        <?php endif; ?>
                     </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -64,9 +66,11 @@ include_once '../../App/Controllers/puesto/listado_de_puestos.php';
                                                 <td><?php echo $ubicacion_puesto; ?></td>
                                                 <td>
                                                     <div class="text-center">
-                                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_puesto; ?>">
-                                                            <i class="fas fa-pencil-alt"></i> Editar
-                                                        </button>
+                                                        <?php if ($auth->tienePermiso('puestos') && $auth->isAdmin()) : ?>
+                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update<?php echo $id_puesto; ?>">
+                                                                <i class="fas fa-pencil-alt"></i> Editar
+                                                            </button>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <!-- Modal update puesto -->
                                                     <div class="modal fade" id="modal-update<?php echo $id_puesto; ?>">

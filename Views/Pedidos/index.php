@@ -4,7 +4,7 @@ require_once '../../Views/Layouts/sesion.php';
 require_once '../../App/Controllers/middleware/AuthMiddleware.php';
 
 $auth = new AuthMiddleware($pdo, $URL);
-$usuario = $auth->verificarRoles(['Administrador', 'Vendedor', 'Comprador']);
+$usuario = $auth->verificarPermiso('pedidos');
 
 include_once '../../Views/Layouts/header.php';
 include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
@@ -37,6 +37,18 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                             </div>
                         </div>
                         <div class="card-body" style="display: block;">
+                            <?php if ($auth->isAdmin() && $auth->tienePermiso('pedidos')) : ?>
+                                <!-- Filtros de puesto -->
+                                <div class="dropright mb-3">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Filtro de puestos
+                                    </button>
+                                    <div class="dropdown-menu" id="puestoDropdown">
+                                        <!-- Opciones generadas dinámicamente aquí -->
+                                    </div>
+                                </div>
+                                <!-- Final de filtro -->
+                            <?php endif; ?>
                             <div class="table table-responsive">
                                 <table id="example1" class="table table-bordered table-hover table-striped table-sm">
                                     <thead>
@@ -96,7 +108,7 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="show.php?id=<?php echo $id_pedido; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                                        <?php if ($rol_sesion == 'Administrador') : ?>
+                                                        <?php if ($auth->isAdmin() && $auth->tienePermiso('pedidos')) : ?>
                                                             <a href="delete.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $pedidos_dato['NroPedido']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
                                                         <?php endif; ?>
                                                         <a href="nota_de_entrega.php?id=<?php echo $id_pedido; ?>&nro_pedido=<?php echo $pedidos_dato['NroPedido']; ?>" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Imprimir</a>
@@ -279,104 +291,174 @@ include_once '../../App/Controllers/pedidos/listado_de_pedidos.php';
 
 <!-- Page specific script -->
 <script>
-    $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        buttons: [{
-                extend: 'collection',
-                text: 'Reportes',
-                orientation: 'landscape',
-                buttons: [{
-                    text: 'Copiar',
-                    extend: 'copy'
-                }, {
-                    extend: 'pdf',
-                }, {
-                    extend: 'csv',
-                }, {
-                    extend: 'excel',
-                }, {
-                    text: 'Imprimir',
-                    extend: 'print'
-                }]
-            },
-            {
-                extend: 'colvis',
-                text: 'Visualización de columnas'
-            }
-        ],
-        "pageLength": 5,
-        lengthMenu: [
-            [3, 5, 10, 25, 50],
-            [3, 5, 10, 25, 50]
-        ],
-        "language": {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ Pedidos",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 Pedidos",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ Pedidos)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-
-        }
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const botonesEstado = document.querySelectorAll('.actualizar-estado');
-
-        botonesEstado.forEach(boton => {
-            boton.addEventListener('click', function() {
-                const idPedido = this.getAttribute('data-id-pedido');
-                const estadoActual = parseInt(this.getAttribute('data-estado-actual'));
-
-                // Validar si el pedido ya está cancelado
-                if (estadoActual === 1) {
-                    alert('Este pedido ya está cancelado y no se puede modificar.');
-                    return;
+    $(document).ready(function() {
+        var table = $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            buttons: [{
+                    extend: 'collection',
+                    text: 'Reportes',
+                    orientation: 'landscape',
+                    buttons: [{
+                        text: 'Copiar',
+                        extend: 'copy'
+                    }, {
+                        extend: 'pdf',
+                    }, {
+                        extend: 'csv',
+                    }, {
+                        extend: 'excel',
+                    }, {
+                        text: 'Imprimir',
+                        extend: 'print'
+                    }]
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Visualización de columnas'
                 }
+            ],
+            "pageLength": 5,
+            lengthMenu: [
+                [3, 5, 10, 25, 50],
+                [3, 5, 10, 25, 50]
+            ],
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ Pedidos",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 Pedidos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ Pedidos)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
 
-                const nuevoEstado = 1; // Siempre cambiamos a cancelado (1)
+        var puestosDatos = <?php echo json_encode($puestos_datos); ?>;
 
-                fetch('../../App/Controllers/pedidos/update_estado_pedido.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `idPedido=${idPedido}&nuevoEstado=${nuevoEstado}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            this.textContent = 'Cancelado';
-                            this.classList.remove('btn-danger');
-                            this.classList.add('btn-success');
-                            this.setAttribute('data-estado-actual', nuevoEstado);
-                            this.disabled = true; // Deshabilitar el botón después de cancelar
-                        } else {
-                            throw new Error(data.error || 'Error desconocido al actualizar el estado');
+        // Ordenar los datos por IdPuesto en orden ascendente
+        puestosDatos.sort(function(a, b) {
+            return a.IdPuesto - b.IdPuesto;
+        });
+
+        var dropdownMenu = $('#puestoDropdown');
+
+        // Limpiar el menú desplegable antes de agregar nuevos elementos
+        dropdownMenu.empty();
+
+        // Agregar opción de "Todos"
+        dropdownMenu.append('<a class="dropdown-item" href="#" id="filtro-todos">Todos</a>');
+
+        // Agregar opciones de puestos ordenadas
+        puestosDatos.forEach(function(puesto) {
+            dropdownMenu.append('<a class="dropdown-item" href="#" data-id="' + puesto.IdPuesto + '">' + puesto.NombrePuesto + '</a>');
+        });
+
+        // Configurar filtros
+        $('.dropdown-menu a').on('click', function() {
+            var puestoId = $(this).data('id');
+            var filtro = $(this).text();
+            if (filtro === 'Todos') {
+                // Mostrar todos
+                table.column(7).search('').draw(); // Asumiendo que la columna del puesto es la 7
+            } else {
+                // Filtrar por puesto
+                table.column(7).search(filtro).draw();
+            }
+        });
+
+        // Manejar la actualización del estado de los pedidos
+        $('.actualizar-estado').on('click', function() {
+            var boton = $(this);
+            var idPedido = boton.data('id-pedido');
+            var estadoActual = parseInt(boton.data('estado-actual'));
+
+            // Validar si el pedido ya está cancelado
+            if (estadoActual === 1) {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Este pedido ya está cancelado y no se puede modificar.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                return;
+            }
+
+            var nuevoEstado = 1; // Siempre cambiamos a cancelado (1)
+
+            $.ajax({
+                url: '../../App/Controllers/pedidos/update_estado_pedido.php',
+                method: 'POST',
+                data: {
+                    idPedido: idPedido,
+                    nuevoEstado: nuevoEstado
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        boton.text('Cancelado');
+                        boton.removeClass('btn-danger').addClass('btn-success');
+                        boton.data('estado-actual', nuevoEstado);
+                        boton.prop('disabled', true);
+
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'El pedido ha sido cancelado exitosamente.',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                    } else {
+                        throw new Error(data.error || 'Error desconocido al actualizar el estado');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Error al actualizar el estado: ' + error,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert(`Error al actualizar el estado: ${error.message}`);
                     });
+                }
             });
         });
+
+        table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
